@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Food_Connecter" 
+             x:Class="Food_Connecter.MainPage">
+    <TabbedPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0" />
+    </TabbedPage.Padding>
+    <TabbedPage.Children>
+        <NavigationPage Title="食品管理" Icon="list.png">
+            <x:Arguments>
+                <local:kanriPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="おすそわけ" Icon="meeting.png">
+            <x:Arguments>
+                <local:osusowakePage/>
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="イベント" Icon="collaboration.png">
+            <x:Arguments>
+                <local:eventPage />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>

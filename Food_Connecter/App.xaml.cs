@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SQLite;
 using System.IO;
+using System.Threading.Tasks;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Food_Connecter
@@ -27,6 +28,18 @@ namespace Food_Connecter
                 }
                 return database;
             }
+        }
+
+        public interface IAuthenticate
+        {
+            Task<bool> Authenticate();
+        }
+
+        public static IAuthenticate Authenticator { get; private set; }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
         }
 
         public int ResumeAtFoodId { get; set; }

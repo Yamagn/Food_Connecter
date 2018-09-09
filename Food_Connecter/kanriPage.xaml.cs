@@ -9,6 +9,8 @@ namespace Food_Connecter
 {
     public partial class kanriPage : ContentPage
     {
+        bool authenticated = false;
+
         public kanriPage()
         {
             InitializeComponent();
@@ -29,33 +31,31 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
-            // Reset the 'resume' id, since we just want to re-start here
-            ((App)App.Current).ResumeAtFoodId = -1;
-            listView.ItemsSource = await App.Database.GetItemsAsync();
-
+            // Refresh items only when authenticated.
+            if (authenticated == true)
+            {
+                // Set syncItems to true in order to synchronize the data
+                // on startup when running in offline mode.
+                await RefreshItems(true, syncItems: false);
+            }
         }
 
         async void takePhoto (object sender, EventArgs e)
         {
-            await CrossMedia.Current.Initialize();
+            var photoUrl = await PhotoClient.TakePhotoAsync();
 
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-            {
-                DisplayAlert("No Camera", ":( No camera available.", "OK");
-                return;
-            }
-
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            {
-                    Directory = "Sample",
-                    Name = "test.jpg"
-            });
-                                                               
-            if (file == null)
-            return;
-
-            await DisplayAlert("File Location", file.Path, "OK");
+            var result = await CognitiveAPIClient.AnalizeAsync(photoUrl);
         }
+
+        async void signin (object sender, EventArgs e)
+        {
+            if (App.Authenticator != null)
+                authenticated = await App.Authenticator.Authenticate();
+
+            // Set syncItems to true to synchronize the data on startup when offline is enabled.
+            if (authenticated == true)
+                await RefreshItems(true, syncItems: false);
+            }
 
         async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

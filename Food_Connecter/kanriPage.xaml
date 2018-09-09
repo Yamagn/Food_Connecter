@@ -5,6 +5,8 @@
              Title="食品管理">
         <ContentPage.ToolbarItems>
             <ToolbarItem Text="+" Clicked="takePhoto" />
+            <ToolbarItem Text="=" Order="Primary" />
+            <ToolbarItem Text="Sign in" Clicked="signin" Order="Secondary" />
         </ContentPage.ToolbarItems>
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected">
             <ListView.ItemTemplate>

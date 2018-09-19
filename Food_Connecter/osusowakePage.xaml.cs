@@ -10,6 +10,7 @@ namespace Food_Connecter
         public osusowakePage()
         {
             InitializeComponent();
+
         }
     }
 }

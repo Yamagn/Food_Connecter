@@ -30,18 +30,6 @@ namespace Food_Connecter
             }
         }
 
-        public interface IAuthenticate
-        {
-            Task<bool> Authenticate();
-        }
-
-        public static IAuthenticate Authenticator { get; private set; }
-
-        public static void Init(IAuthenticate authenticator)
-        {
-            Authenticator = authenticator;
-        }
-
         public int ResumeAtFoodId { get; set; }
 
         protected override void OnStart()

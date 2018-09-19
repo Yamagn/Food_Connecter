@@ -7,7 +7,6 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
-using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
 
 

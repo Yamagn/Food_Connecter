@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,16 +9,23 @@ namespace Food_Connecter
 {
     public class CognitiveAPIClient
     {
-        public static async Task<HttpStatusCode> AnalizeAsync(string photoURL)
+        public static async Task<HttpResponseMessage> AnalizeAsync(string photoURL)
         {
-            var client = new HttpClient();
-            var file = await FileSystem.Current.GetFileFromPathAsync(photoURL);
-            var imageStream = await file.OpenAsync(FileAccess.Read);
-            var content = new MultipartFormDataContent();
-            var fileContent = new StreamContent(imageStream);
-            content.Add(fileContent, "image");
-            var result = await client.PostAsync("http://samplefood.azurewebsites.net/api/foodlearn", content);
-            return result.StatusCode;
+            try
+            {
+                var client = new HttpClient();
+                var serverUri = "https://samplefood.azurewebsites.net/api/foodlearn";
+                var content = new StreamContent(File.OpenRead(photoURL));
+                HttpResponseMessage res = client.PostAsync(serverUri, content).Result;
+                Console.WriteLine(await res.Content.ReadAsStringAsync());
+                return res;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
     }
 }

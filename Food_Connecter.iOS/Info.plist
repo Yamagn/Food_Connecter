@@ -20,8 +20,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>MinimumOSVersion</key>
-	<string>11.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>Food_Connecter</string>
 	<key>CFBundleIdentifier</key>
@@ -42,5 +40,19 @@
 	<string>This app needs access to microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
+	<key>MinimumOSVersion</key>
+	<string>11.4</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>FoodConnecterAuth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>foodconnecter</string>
+			</array>
+		</dict>
+		<dict/>
+	</array>
 </dict>
 </plist>

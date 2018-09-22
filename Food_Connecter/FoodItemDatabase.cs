@@ -22,7 +22,7 @@ namespace Food_Connecter
 
         public Task<List<FoodItem>> GetItemsNotDoneAsync()
         {
-            return database.QueryAsync<FoodItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+            return database.QueryAsync<FoodItem>("SELECT * FROM [FoodItem] WHERE [Done] = 0");
         }
 
         public Task<FoodItem> GetItemAsync(int id)

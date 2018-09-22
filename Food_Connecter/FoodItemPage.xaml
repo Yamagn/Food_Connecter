@@ -2,5 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.FoodItemPage">
-    
+    <StackLayout>
+        <Image x:Name="foodImage" Source="{Binding Image}" Margin="20,20,20,20" />
+        <Label x:Name="foodName" Text="{Binding Name}" HorizontalOptions="Center"/>
+        <Button x:Name="submit" Text="おすそ分けに出す" HorizontalOptions="Center" Clicked="Go_Osusowake"/>
+        <Label x:Name="caution" Text="※おすそ分けに出すには新たに写真を取っていただく必要がございます" />
+    </StackLayout>
 </ContentPage>

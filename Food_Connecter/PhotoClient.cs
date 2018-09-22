@@ -16,7 +16,10 @@ namespace Food_Connecter
             }
 
             var photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
-
+            if(photo == null)
+            {
+                return null;
+            }
             return photo.Path;
         }
     }

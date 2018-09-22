@@ -5,7 +5,12 @@
     x:Class="Food_Connecter.osusowakePage"
     Title="おすそわけ">
     <ScrollView>
-        <Grid x:Name="osusowakeGrid" RowSpacing="3" ColumnSpacing="3">
+        <StackLayout>
+            <Button x:Name="loginButton" Text="Sigin-in" HorizontalOptions="Center" Clicked="loginButton_Clicked" />
+            <Button x:Name="logoutButton" Text="logout" HorizontalOptions="Center" Clicked="logoutButton_Clicked" />
+        </StackLayout>
+        
+        <!--<Grid x:Name="osusowakeGrid" RowSpacing="3" ColumnSpacing="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -19,6 +24,6 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-        </Grid>
+        </Grid>-->
     </ScrollView>
 </ContentPage>

@@ -23,7 +23,9 @@ namespace Food_Connecter
         {
             var photoUrl = await PhotoClient.TakePhotoAsync();
             var result = await CognitiveAPIClient.AnalizeAsync(photoUrl);
-            Console.WriteLine(result);
+            //await CognitiveAPIClient.AnalizeAsync(photoUrl);
+            if (result == null)
+                return;
         }
 
         async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)

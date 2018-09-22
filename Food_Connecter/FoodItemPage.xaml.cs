@@ -11,5 +11,10 @@ namespace Food_Connecter
         {
             InitializeComponent();
         }
+
+        async void Go_Osusowake(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

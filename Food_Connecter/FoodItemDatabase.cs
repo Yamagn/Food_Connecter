@@ -12,25 +12,25 @@ namespace Food_Connecter
         public FoodItemDatabase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<FoodItem>().Wait();
+            database.CreateTableAsync<ClassData>().Wait();
         }
 
-        public Task<List<FoodItem>> GetItemsAsync()
+        public Task<List<ClassData>> GetItemsAsync()
         {
-            return database.Table<FoodItem>().ToListAsync();
+            return database.Table<ClassData>().ToListAsync();
         }
 
-        public Task<List<FoodItem>> GetItemsNotDoneAsync()
+        //public Task<List<ClassData.classes>> GetItemsNotDoneAsync()
+        //{
+        //    return database.QueryAsync<ClassData.classes>("SELECT * FROM [ClassData] WHERE [Done] = 0");
+        //}
+
+        public Task<ClassData> GetItemAsync(int id)
         {
-            return database.QueryAsync<FoodItem>("SELECT * FROM [FoodItem] WHERE [Done] = 0");
+            return database.Table<ClassData>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
 
-        public Task<FoodItem> GetItemAsync(int id)
-        {
-            return database.Table<FoodItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        }
-
-        public Task<int> SaveItemAsync(FoodItem item)
+        public Task<int> SaveItemAsync(ClassData item)
         {
             if (item.ID != 0)
             {
@@ -42,7 +42,7 @@ namespace Food_Connecter
             }
         }
 
-        public Task<int> DeleteItemAsync(FoodItem item)
+        public Task<int> DeleteItemAsync(ClassData item)
         {
             return database.DeleteAsync(item);
         }

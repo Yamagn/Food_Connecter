@@ -4,14 +4,17 @@
              x:Class="Food_Connecter.kanriPage"
              Title="食品管理">
         <ContentPage.ToolbarItems>
+            <ToolbarItem x:Name="loginButton" Text="login" Clicked="loginButton_Clicked" />
             <ToolbarItem Text="+" Clicked="takePhoto" />
         </ContentPage.ToolbarItems>
+        <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" />
+        <!-- ListView-->
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <Label x:Name="test" Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label x:Name="test" Text="{Binding Class}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

@@ -58,6 +58,32 @@ namespace Food_Connecter.Droid
             return success;
         }
 
+        public async Task<bool> ReleaseAuth()
+        {
+            var success = false;
+            var message = string.Empty;
+            try
+            {
+                if (user != null)
+                {
+                    message = string.Format("Logout as {0}.", user.UserId);
+                    user = null;
+                    success = true;
+                }
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetMessage(message);
+            builder.SetTitle("Sign-in result");
+            builder.Create().Show();
+
+            return success;
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);

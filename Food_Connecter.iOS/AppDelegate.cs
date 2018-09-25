@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 
-namespace Food_Connecter.iOS
+namespace Food_Connecter
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -24,7 +24,7 @@ namespace Food_Connecter.iOS
         //
 
         // Define a authenticated user.
-        private MobileServiceUser user;
+        public MobileServiceUser user { get; set; }
 
         public async Task<bool> Authenticate(MobileServiceAuthenticationProvider provider)
         {

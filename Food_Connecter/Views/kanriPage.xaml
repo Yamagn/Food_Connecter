@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.kanriPage"
+             Title="食品管理">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="loginButton" Text="login" Clicked="loginButton_Clicked" Priority="1" Order="Primary"/>
+        <ToolbarItem Icon="camera.png" Clicked="takePhoto" Priority="2" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="削除"  Clicked="DeleteAction" CommandParameter="{Binding .}" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label x:Name="ClassName" Text="{Binding Class}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label x:Name="Score" Text="{Binding Score}" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" FontSize="Small" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+<!--            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" />-->
+<!--            <Button x:Name="DeleteAll" Text="すべての項目を削除" Clicked="DeleteAllAction" HorizontalOptions="Center"/>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+             <Button x:Name="DeleteAll" Text="すべての項目を削除" Clicked="DeleteAllAction" Grid.Row="0" Grid.Column="0" />
+             <Button x:Name="Settings" Text="設定" Clicked="OnSettingsClicked" Grid.Row="0" Grid.Column="1" />
+        </Grid>
+    </StackLayout>
+</ContentPage>

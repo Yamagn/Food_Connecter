@@ -1,9 +1,7 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using SQLite;
 using System.IO;
-using System.Threading.Tasks;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Food_Connecter
@@ -11,6 +9,7 @@ namespace Food_Connecter
     public partial class App : Application
     {
         public static FoodItemDatabase database;
+        public static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
         public App()
         {
             InitializeComponent();

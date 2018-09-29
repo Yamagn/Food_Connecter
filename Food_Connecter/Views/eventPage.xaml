@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.eventPage"
+             Title="食品管理">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="camera.png" Clicked="takePhoto" Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <ActivityIndicator x:Name="activity_indicator" />
+    <StackLayout>
+        <Image x:Name="imagePreView" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="300"/>
+        <Label x:Name="Result" Text="右上のカメラマークを押してね！" HorizontalOptions="Center" VerticalOptions="Start" FontSize="50"/>
+        <Label x:Name="ResultScore" Text="" HorizontalOptions="Center" VerticalOptions="Start" FontSize="50" />
+        <Button x:Name="InitData" Text="初期化" VerticalOptions="End" HorizontalOptions="Center" Clicked="InitDataAction"/>
+    </StackLayout>
+</ContentPage>

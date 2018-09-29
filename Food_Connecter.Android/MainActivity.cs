@@ -33,6 +33,8 @@ namespace Food_Connecter.Droid
         // Define a authenticated user.
         private MobileServiceUser user;
 
+        MobileServiceUser IAuthenticate.user { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public async Task<bool> Authenticate(MobileServiceAuthenticationProvider provider)
         {
             var success = false;

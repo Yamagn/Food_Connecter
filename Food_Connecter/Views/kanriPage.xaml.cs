@@ -7,7 +7,7 @@ namespace Food_Connecter
     public partial class kanriPage : ContentPage
     {
         // Track whether the user has authenticated.
-        bool authenticated = false;
+        public static bool authenticated = false;
 
         public kanriPage()
         {
@@ -18,9 +18,9 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
-            listView.IsRefreshing = true;
+            Stack.IsVisible = true;
             listView.ItemsSource = await App.Database.GetItemsAsync();
-            listView.IsRefreshing = false;
+            Stack.IsVisible = false;
 
             if(authenticated == true) 
             {
@@ -38,6 +38,7 @@ namespace Food_Connecter
                     if (authenticated == true)
                     {
                         this.loginButton.Text = "logout";
+                        await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
                     }
                 }
                     
@@ -56,7 +57,7 @@ namespace Food_Connecter
 
         async void takePhoto (object sender, EventArgs e)
         {
-            this.IsBusy = true;
+            Stack.IsVisible = true;
             var photoUrl = await PhotoClient.TakePhotoAsync();
             if (photoUrl == null)
             {
@@ -78,7 +79,7 @@ namespace Food_Connecter
                 }
             }
             listView.ItemsSource = await App.Database.GetItemsAsync();
-            this.IsBusy = false;
+            Stack.IsVisible = false;
         }
 
         async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)

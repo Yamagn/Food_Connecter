@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.AddEventPage"
+             Title="イベント追加">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddEventButton" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Label Text="イベント名" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+        <Entry x:Name="EventNameEntry" Text="{Binding EventName}"/> 
+        <Label Text="開催する都道府県" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+        <Picker x:Name="PrefPicker" SelectedItem="{Binding SelectedPrefName}"/>
+        <Label Text="開催する市区町村" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+        <Picker x:Name="TownPicker" SelectedItem="{Binding SelectedTownName}" IsEnabled="false"/>
+        <Label Text="詳細場所" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+        <Entry x:Name="PlaceEntry" Text="{Binding Place}"/>
+    </StackLayout>
+</ContentPage>

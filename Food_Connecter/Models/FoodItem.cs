@@ -6,10 +6,10 @@ namespace Food_Connecter
     public class FoodItem
     {
         [JsonProperty(PropertyName = "images")]
-        public List<Image> Images { get; set; }
+        public List<Images> Images { get; set; }
     }
 
-    public class Image
+    public class Images
     {
         [JsonProperty(PropertyName = "classifiers")]
         public List<Classifier> Classifiers { get; set; }

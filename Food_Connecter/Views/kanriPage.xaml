@@ -23,8 +23,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-<!--            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" />-->
-<!--            <Button x:Name="DeleteAll" Text="すべての項目を削除" Clicked="DeleteAllAction" HorizontalOptions="Center"/>-->
+        <StackLayout x:Name="Stack" IsVisible="false">
+            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" IsRunning="true"/>
+        </StackLayout>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -36,5 +37,6 @@
              <Button x:Name="DeleteAll" Text="すべての項目を削除" Clicked="DeleteAllAction" Grid.Row="0" Grid.Column="0" />
              <Button x:Name="Settings" Text="設定" Clicked="OnSettingsClicked" Grid.Row="0" Grid.Column="1" />
         </Grid>
+        
     </StackLayout>
 </ContentPage>

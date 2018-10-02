@@ -46,11 +46,10 @@ namespace Food_Connecter
             catch (Exception ex)
             {
                 message = ex.Message;
+                // Display the success or failure message.
+                UIAlertView avAlert = new UIAlertView("Sign-in result", message, null, "OK", null);
+                avAlert.Show();
             }
-
-            // Display the success or failure message.
-            UIAlertView avAlert = new UIAlertView("Sign-in result", message, null, "OK", null);
-            avAlert.Show();
 
             return success;
         }

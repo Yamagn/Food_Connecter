@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.PostDataPage"
+             Title="食材を投稿する">
+    <StackLayout>
+        <Label Text="名前" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20"/>
+        <Label x:Name="ClassName" Text="{Binding Class}" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" />
+        <Label Text="食材についての情報" HorizontalOptions="Start" Margin="20, 50, 20, 20" />
+        <Editor x:Name="Info" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="Gray"/>
+        <Button Text="写真を撮影して送信" HorizontalOptions="Center" Clicked="OnSendClicked" />
+    </StackLayout>
+    
+    
+</ContentPage>

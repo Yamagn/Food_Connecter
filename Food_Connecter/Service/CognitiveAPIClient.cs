@@ -27,6 +27,10 @@ namespace Food_Connecter
                 Console.WriteLine(res.StatusCode);
                 var jsontext = await res.Content.ReadAsStringAsync();
                 var ps = JsonConvert.DeserializeObject<FoodItem>(jsontext);
+                foreach(var i in ps.Images[0].Classifiers[0].Classes)
+                {
+                    i.Date = DateTime.Now.AddDays(4);
+                }
                 return ps;
 
             }

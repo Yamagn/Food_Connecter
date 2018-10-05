@@ -13,47 +13,69 @@ namespace Food_Connecter
 {
     public partial class osusowakePage : ContentPage
     {
-        [DataContract]
         class ImageList
         {
-            [DataMember(Name = "photos")]
+            [JsonProperty("photos")]
             public List<string> Photos = null;
         }
 
         public osusowakePage()
         {
             InitializeComponent();
-
-            LoadBitmapCollection();
         }
+        
 
         async void LoadBitmapCollection()
         {
-            int imageDimension = Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android ? 240 : 120;
+            int imageDimension = Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android ? 80 : 40;
             string urlSuffix = String.Format("?width={0}&height{0}&mode=max", imageDimension);
 
             using (WebClient webClient = new WebClient())
             {
                 try
                 {
-                    Uri uri = new Uri("http://docs.xamarin.com/demo/stock.json");
-                    byte[] data = await webClient.DownloadDataTaskAsync(uri);
+                    Uri uri = new Uri(Constants.ApplicationURL + "/api/view?id=" + App.Authenticator.user.UserId + "&city=" + kanriPage.userInfo.City);
+                    //Uri uri = new Uri("http://docs.xamarin.com/demo/stock.json");
+                    var stream = App.client.GetStringAsync(uri).Result;
+                    Console.WriteLine(stream);
 
-                    using (Stream stream = new MemoryStream(data))
+                    var js = JsonConvert.DeserializeObject<List<osusowakeFood>>(stream);
+
+                    foreach (var filepath in js)
                     {
-                        var jsonSerealizer = new DataContractJsonSerializer(typeof(ImageList));
-                        ImageList imageList = (ImageList)jsonSerealizer.ReadObject(stream);
-
-                        foreach(string filepath in imageList.Photos)
+                        var tgr = new TapGestureRecognizer();
+                        tgr.Tapped += async (sender, e) =>
                         {
-                            var tgr = new TapGestureRecognizer();
-                            tgr.Tapped += (sender, e) => OnImageClicked();
-                            Image image = new Image();
-                            image.Source = ImageSource.FromUri(new Uri(filepath + urlSuffix));
-                            image.GestureRecognizers.Add(tgr);
-                            flexLayout.Children.Add(image);
-                        }
+                            await Navigation.PushAsync(new OsusowakeDetailPage
+                            {
+                                BindingContext = filepath
+                            });
+                        };
+                        Image image = new Image();
+                        image.Source = ImageSource.FromUri(new Uri(filepath.imageUrl));
+                        image.HeightRequest = imageDimension;
+                        image.WidthRequest = imageDimension;
+                        image.GestureRecognizers.Add(tgr);
+                        flexLayout.Children.Add(image);
                     }
+
+                    //var js = JsonConvert.DeserializeObject<ImageList>(stream);
+
+                    //foreach (var filepath in js.Photos)
+                    //{
+                    //    var tgr = new TapGestureRecognizer();
+                    //    tgr.Tapped += async (sender, e) =>
+                    //    {
+                    //        await Navigation.PushAsync(new OsusowakeDetailPage
+                    //        {
+                    //            //BindingContext = filepath
+                    //        });
+                    //    };
+                    //    Image image = new Image();
+                    //    image.Source = ImageSource.FromUri(new Uri(filepath));
+                    //    image.GestureRecognizers.Add(tgr);
+                    //    flexLayout.Children.Add(image);
+                    //}
                 }
                 catch
                 {
@@ -65,11 +87,6 @@ namespace Food_Connecter
             }
             activity_indicator.IsRunning = false;
             activity_indicator.IsVisible = false;
-        }
-
-        async void OnImageClicked()
-        {
-            await Navigation.PushAsync(new OsusowakeDetailPage());
         }
 
         protected override async void OnAppearing()
@@ -93,6 +110,16 @@ namespace Food_Connecter
                     return;
                 }
             }
+            else
+            {
+                flexLayout.Children.Clear();
+                LoadBitmapCollection();
+            }
+        }
+
+        async void manageButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new uketoriListPage());
         }
     }
 }

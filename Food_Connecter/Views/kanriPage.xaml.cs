@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace Food_Connecter
 {
@@ -8,6 +9,7 @@ namespace Food_Connecter
     {
         // Track whether the user has authenticated.
         public static bool authenticated = false;
+        public static UserModel userInfo = null;
 
         public kanriPage()
         {
@@ -19,7 +21,14 @@ namespace Food_Connecter
             base.OnAppearing();
 
             Stack.IsVisible = true;
-            listView.ItemsSource = await App.Database.GetItemsAsync();
+            foreach(var i in App.FoodDatabase.GetItemsAsync().Result)
+            {
+                var limit = i.Date - DateTime.Now;
+                i.Limit = String.Format("残り : {0}日", limit.Days.ToString());
+                Console.WriteLine(i.Limit);
+                await App.FoodDatabase.SaveItemAsync(i);
+            }
+            listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
             Stack.IsVisible = false;
 
             if(authenticated == true) 
@@ -30,6 +39,7 @@ namespace Food_Connecter
 
         async void loginButton_Clicked(object sender, EventArgs e)
         {
+            Stack.IsVisible = true;
             if(authenticated == false)
             {
                 if (App.Authenticator != null)
@@ -38,10 +48,18 @@ namespace Food_Connecter
                     if (authenticated == true)
                     {
                         this.loginButton.Text = "logout";
+                        var res = App.client.GetAsync(Constants.ApplicationURL + "/api/getuser?userid=" + App.Authenticator.user.UserId);
+                        var json = await res.Result.Content.ReadAsStringAsync();
+                        Console.WriteLine(json);
+                        userInfo = JsonConvert.DeserializeObject<UserModel>(json);
                         await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
+                        Stack.IsVisible = false;
+                        if (userInfo.City == null)
+                        {
+                            await Navigation.PushAsync(new SettingsPage());
+                        }
                     }
                 }
-                    
             }
             else 
             {
@@ -61,7 +79,7 @@ namespace Food_Connecter
             var photoUrl = await PhotoClient.TakePhotoAsync();
             if (photoUrl == null)
             {
-                this.IsBusy = false;
+                Stack.IsVisible = false;
                 return;
             }
             var ps = await CognitiveAPIClient.AnalizeAsync(photoUrl);
@@ -72,13 +90,15 @@ namespace Food_Connecter
                 Console.WriteLine("{0}:{1}:{2}", v.ID, v.Class, v.Score);
                 float num = float.Parse(v.Score) * 100;
                 v.Score = num.ToString() + "%";
+                var limit = v.Date - DateTime.Now;
+                v.Limit = String.Format("残り : {0}日", limit.Days.ToString());
                 var accepted = await DisplayAlert(v.Class, "スコア: " + v.Score, "追加する", "スキップ");
                 if (accepted)
                 {
-                    await App.Database.SaveItemAsync(v);
+                    await App.FoodDatabase.SaveItemAsync(v);
                 }
             }
-            listView.ItemsSource = await App.Database.GetItemsAsync();
+            listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
             Stack.IsVisible = false;
         }
 
@@ -96,9 +116,9 @@ namespace Food_Connecter
         async void DeleteAction(object sender, EventArgs e)
         {
             var mi = (MenuItem)sender;
-            await App.Database.DeleteItemAsync(mi.CommandParameter as ClassData);
+            await App.FoodDatabase.DeleteItemAsync(mi.CommandParameter as ClassData);
             listView.ItemsSource = null;
-            listView.ItemsSource = await App.Database.GetItemsAsync();
+            listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
         }
 
         async void DeleteAllAction(object sender, EventArgs e)
@@ -106,9 +126,9 @@ namespace Food_Connecter
             listView.IsRefreshing = true;
             foreach(var a in listView.ItemsSource)
             {
-                await App.Database.DeleteItemAsync(a as ClassData);
+                await App.FoodDatabase.DeleteItemAsync(a as ClassData);
             }
-            listView.ItemsSource = await App.Database.GetItemsAsync();
+            listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
             listView.IsRefreshing = false;
         }
 

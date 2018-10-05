@@ -3,6 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.OsusowakeDetailPage"
              Title="{Binding food}">
-    <ContentPage.Content>
-    </ContentPage.Content>
+    <StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Image Source="{Binding imageUrl}" />
+                <Label Text="{Binding Food}" FontSize="Large" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{Binding foodDate}" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
+                <Label Text="食品の説明" FontSize="Small" />
+                <Label Text="{Binding Info}" FontSize="Medium" />
+            </StackLayout>
+        </ScrollView>
+        <Button Text="この食材を受け取る" Clicked="OnUketoriClicked" HorizontalOptions="CenterAndExpand" BackgroundColor="Orange" VerticalOptions="End"/>
+    </StackLayout>
+    
+    
 </ContentPage>

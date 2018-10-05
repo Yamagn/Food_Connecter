@@ -8,7 +8,8 @@ namespace Food_Connecter
 {
     public partial class App : Application
     {
-        public static FoodItemDatabase database;
+        public static FoodItemDatabase foodDatabase;
+        public static UketoriItemDateBase uketoriDatabase;
         public static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
         public App()
         {
@@ -17,15 +18,27 @@ namespace Food_Connecter
             MainPage = new MainPage();
         }
 
-        public static FoodItemDatabase Database
+        public static FoodItemDatabase FoodDatabase
         {
             get
             {
-                if (database == null)
+                if (foodDatabase == null)
                 {
-                    database = new FoodItemDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FoodSQLite.db3"));
+                    foodDatabase = new FoodItemDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FoodSQLite.db3"));
                 }
-                return database;
+                return foodDatabase;
+            }
+        }
+
+        public static UketoriItemDateBase UketoriDatabase
+        {
+            get
+            {
+                if (uketoriDatabase == null)
+                {
+                    uketoriDatabase = new UketoriItemDateBase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UketoriSQLite.db3"));
+                }
+                return uketoriDatabase;
             }
         }
 

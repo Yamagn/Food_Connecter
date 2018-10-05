@@ -9,16 +9,29 @@
     </ContentPage.ToolbarItems>
     <StackLayout>
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" >
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="30, 0, 0, 0">
+                    <Label Text="名前" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="賞味期限" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="量" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="おすそ分け" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="削除"  Clicked="DeleteAction" CommandParameter="{Binding .}" IsDestructive="True" />
                         </ViewCell.ContextActions>
-                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <Label x:Name="ClassName" Text="{Binding Class}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
-                            <Label x:Name="Score" Text="{Binding Score}" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" FontSize="Small" />
+                        <StackLayout>
+                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                                <Label x:Name="ClassName" Text="{Binding Class}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                                <Label x:Name="LimitTime" Text="{Binding Limit}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
+                                <Label x:Name="Quantity" Text="1個" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
+                                <Switch x:Name="IsOsusowake" IsToggled="false" VerticalOptions="Center" IsEnabled="false"/>
+                            </StackLayout>
                         </StackLayout>
+                        
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -17,10 +17,7 @@ namespace Food_Connecter
             InitializeComponent();
         }
 
-        public static String UserName { get; }
-        public static String SelectedPrefName { get; }
         List<TownData> townDatas;
-        String[] vs = {};
 
         protected async override void OnAppearing()
         {
@@ -46,6 +43,19 @@ namespace Food_Connecter
                 PrefPicker.Items.Add(i);
             }
         }
+
+        async void SelectedChanged(object sender, EventArgs e)
+        {
+            TownPicker.IsEnabled = true;
+            foreach (var j in townDatas)
+            {
+                if (Equals(PrefPicker.SelectedItem, j.prefName))
+                {
+                    TownPicker.Items.Add(j.townName);
+                }
+            }
+        }
+
         async void OnSubmitClicked(object sender, EventArgs e)
         {
             Console.WriteLine("{0} : {1}", PrefPicker.SelectedItem, UserNameEntry.Text);
@@ -56,21 +66,11 @@ namespace Food_Connecter
             }
             else
             {
-                foreach(var j in townDatas)
-                {
-                    if(Equals(PrefPicker.SelectedItem, j.prefName))
-                    {
-                        vs.CopyTo(vs = new string[vs.Length + 1], 0);
-                        vs[vs.Length - 1] = j.townName;
-                    }
-                }
-                var result = await DisplayActionSheet("市区町村を選択してください", "閉じる", null, vs);
-
                 var userData = new UserModel();
                 userData.UserID = App.Authenticator.user.UserId;
                 userData.UserName = UserNameEntry.Text;
                 userData.Pref = PrefPicker.SelectedItem.ToString();
-                userData.City = result;
+                userData.City = TownPicker.SelectedItem.ToString();
 
                 var json = JsonConvert.SerializeObject(userData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

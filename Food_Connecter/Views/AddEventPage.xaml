@@ -6,14 +6,22 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddEventButton" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
     </ContentPage.ToolbarItems>
-    <StackLayout>
-        <Label Text="イベント名" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
-        <Entry x:Name="EventNameEntry" Text="{Binding EventName}"/> 
-        <Label Text="開催する都道府県" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
-        <Picker x:Name="PrefPicker" SelectedItem="{Binding SelectedPrefName}"/>
-        <Label Text="開催する市区町村" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
-        <Picker x:Name="TownPicker" SelectedItem="{Binding SelectedTownName}" IsEnabled="false"/>
-        <Label Text="詳細場所" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
-        <Entry x:Name="PlaceEntry" Text="{Binding Place}"/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout>
+            <Label Text="イベント名" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+            <Entry x:Name="EventNameEntry" Text="{Binding EventName}" Margin="30, 0, 30, 0"/> 
+            <Label Text="開催する都道府県" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+            <Picker x:Name="PrefPicker" SelectedItem="{Binding SelectedPrefName}" SelectedIndexChanged="SelectedChanged" Margin="30, 0, 30, 0"/>
+            <Label Text="開催する市区町村" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+            <Picker x:Name="TownPicker" SelectedItem="{Binding SelectedTownName}" IsEnabled="false" Margin="30, 0, 30, 0"/>
+            <Label Text="詳細場所" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+            <Entry x:Name="PlaceEntry" Text="{Binding Place}" Margin="30, 0, 30, 0"/>
+            <Label Text="開催日時" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />
+            <DatePicker x:Name="DatePicker" Margin="30, 0, 30, 0"/>
+            <TimePicker x:Name="TimePicker" Margin="30, 0, 30, 0"/>
+            
+            <Button x:Name="submitButton" Text="投稿" Clicked="OnSubmitClicked" HorizontalOptions="Center" />
+        </StackLayout>
+    </ScrollView>
+    
 </ContentPage>

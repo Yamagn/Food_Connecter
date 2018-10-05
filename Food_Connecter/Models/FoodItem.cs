@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using SQLite;
 namespace Food_Connecter
@@ -31,5 +32,9 @@ namespace Food_Connecter
 
         [JsonProperty(PropertyName = "score")]
         public string Score { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string Limit { get; set; }
     }
 }

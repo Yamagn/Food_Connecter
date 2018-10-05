@@ -3,18 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.eventPage"
              Title="イベント">
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Icon="camera.png" Clicked="takePhoto" Priority="1"/>
-    </ContentPage.ToolbarItems>
-    <StackLayout>
-        <StackLayout x:Name="Stack" IsVisible="false">
-            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" IsRunning="true"/>
-        </StackLayout>
-        <Image x:Name="imagePreView" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="300"/>
-        <Label x:Name="Result" Text="右上のカメラマークを押してね！" HorizontalOptions="Center" VerticalOptions="Start" FontSize="50"/>
-        <Label x:Name="ResultScore" Text="" HorizontalOptions="Center" VerticalOptions="Start" FontSize="50" />
-        <Button x:Name="InitData" Text="初期化" VerticalOptions="End" HorizontalOptions="Center" Clicked="InitDataAction"/>
-    </StackLayout>-->
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddEventPage" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
     </ContentPage.ToolbarItems>
@@ -35,6 +23,4 @@
             <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" IsRunning="true"/>
         </StackLayout>
     </StackLayout>
-     
-    
 </ContentPage>

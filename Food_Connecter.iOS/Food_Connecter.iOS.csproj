@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: syankenpon@yahoo.co.jp (G24E7F9Y8V)</CodesignKey>
+    <CodesignKey>iPhone Developer: Keita Tsuzuki (695KRDB6JZ)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
@@ -157,7 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.697729</Version>
+      <Version>3.2.0.871581</Version>
     </PackageReference>
     <PackageReference Include="BTProgressHUD">
       <Version>1.2.0.6</Version>
@@ -181,5 +181,6 @@
     <BundleResource Include="Resources\list%403x.png" />
     <BundleResource Include="Resources\camera.png" />
     <BundleResource Include="Resources\settings.png" />
+    <BundleResource Include="Resources\UketoriSQLite.db3" />
   </ItemGroup>
 </Project>

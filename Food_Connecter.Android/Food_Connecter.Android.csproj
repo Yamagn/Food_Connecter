@@ -80,6 +80,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\FoodSQLite.db3" />
     <None Include="Resources\compact_camera.png" />
+    <None Include="Resources\UketoriSQLite.db3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.ChatPage"
+             Title="連絡用チャット">
+    <StackLayout>
+        <Label Text="受け取り日時や場所などの指定にご利用ください" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+        <ScrollView>
+            <StackLayout x:Name="Stack"/>
+        </ScrollView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="End">
+            <Entry x:Name="ChatContent" HorizontalOptions="FillAndExpand" />
+            <Button x:Name="Send" Text="送信" WidthRequest="50" BackgroundColor="Teal" TextColor="White" />
+        </StackLayout>
+    </StackLayout>
+    
+    
+</ContentPage>

@@ -16,9 +16,26 @@ namespace Food_Connecter
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            if (App.Authenticator.user == null)
+            {
+                var res = await DisplayAlert("ログインしてください", "", "ログインする", "閉じる");
+                if (res)
+                {
+                    kanriPage.authenticated = await App.Authenticator.Authenticate(MobileServiceAuthenticationProvider.Google);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+
+            }
         }
 
         async void manageButton_Clicked(object sender, EventArgs e)

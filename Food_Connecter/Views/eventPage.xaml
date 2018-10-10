@@ -7,13 +7,14 @@
         <ToolbarItem x:Name="AddEventPage" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" >
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refreshList">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell Height="300">
                         <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                            <Label x:Name="prefName" Text="{Binding pref}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
-                            <Label x:Name="date" Text="{Binding date}" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" FontSize="Small" />
+                            <Label x:Name="eventName" Text="{Binding eventName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label x:Name="city" Text="{Binding City}" VerticalTextAlignment="End" FontSize="Small" />
+                            <Label x:Name="Place" Text="{Binding Place}" VerticalTextAlignment="End" FontSize="Small" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

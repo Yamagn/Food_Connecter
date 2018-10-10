@@ -20,11 +20,6 @@ namespace Food_Connecter
 
         List<TownData> townDatas;
 
-        async void manageButton_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new eventManagePage());
-        }
-
         async void SelectedChanged(object sender, EventArgs e)
         {
             TownPicker.IsEnabled = true;
@@ -53,8 +48,9 @@ namespace Food_Connecter
             pe.Place = PlaceEntry.Text;
             pe.eventDate = String.Format("{0} {1}", DatePicker.Date.ToString("yyyy-MM-dd"), TimePicker.Time.ToString("c"));
             var json = JsonConvert.SerializeObject(pe);
+            Console.WriteLine(json);
             var content = new StringContent(json);
-
+            content.Headers.ContentType.MediaType = "application/json";
             var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/makeevent", content);
 
             await DisplayAlert("登録完了", "", "閉じる");

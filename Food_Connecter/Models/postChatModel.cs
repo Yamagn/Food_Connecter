@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
-namespace Food_Connecter.Models
+namespace Food_Connecter
 {
     public class postChatModel
     {

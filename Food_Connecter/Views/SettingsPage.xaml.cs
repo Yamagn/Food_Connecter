@@ -46,6 +46,7 @@ namespace Food_Connecter
 
         async void SelectedChanged(object sender, EventArgs e)
         {
+            TownPicker.Items.Clear();
             TownPicker.IsEnabled = true;
             foreach (var j in townDatas)
             {
@@ -87,6 +88,14 @@ namespace Food_Connecter
                 await DisplayAlert("登録が完了しました", "", "戻る");
                 await Navigation.PopAsync();
 
+            }
+        }
+
+        async void DeleteAllAction(object sender, EventArgs e)
+        {
+            foreach (var a in App.FoodDatabase.GetItemsAsync().Result)
+            {
+                await App.FoodDatabase.DeleteItemAsync(a);
             }
         }
     }

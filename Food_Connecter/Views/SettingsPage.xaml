@@ -8,5 +8,6 @@
         <Label Text="市区町村を選択" HorizontalOptions="Start" Margin="20, 50, 20, 20" IsVisible="false"/>
         <Picker x:Name="TownPicker" SelectedItem="{Binding SelectedTownName}" IsEnabled="false"/>
         <Button x:Name="SubmitButton" Text="登録" HorizontalOptions="Center" Clicked="OnSubmitClicked"/>
+        <Button x:Name="AllDeleteButton" Text="すべての項目を削除" HorizontalOptions="Center"/>
     </StackLayout>
 </ContentPage>

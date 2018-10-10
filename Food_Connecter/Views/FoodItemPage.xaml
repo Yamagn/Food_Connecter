@@ -2,11 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.FoodItemPage">
-    <StackLayout>
-        <Label x:Name="foodName" Text="{Binding Class}" HorizontalOptions="Center"/>
-        <Label Text="このアイテムのスコアは..." HorizontalOptions="Center" />
-        <Label x:Name="foodScore" Text="{Binding Score}" HorizontalOptions="Center" FontSize="Large" FontAttributes="Bold" />
-        <Button x:Name="submit" Text="おすそ分けに出す" HorizontalOptions="Center" Clicked="Go_Osusowake"/>
-        <Label x:Name="caution" Text="※おすそ分けに出すには新たに写真を取っていただく必要がございます" />
-    </StackLayout>
+    <ScrollView>
+        <StackLayout>
+            <TableView Intent="Form" HeightRequest="300">
+                <TableRoot>
+                    <TableSection Title="詳細情報">
+                        <EntryCell x:Name="className" Label="食材名" Text="{Binding Class}" />
+                        <EntryCell x:Name="date" Label="消費期限" Text="{Binding Date}" />
+                        <EntryCell x:Name="quantiry" Label="量" Text="{Binding Quantity}"/>
+                        <SwitchCell Text="おすそ分け状態" On="{Binding IsOsusowake}" IsEnabled="false"/>
+                        <EntryCell Label="スコア" Text="{Binding Score}" IsEnabled="false"/>
+                        <SwitchCell Text="イベントへの提供" On="{Binding IsOffer}" IsEnabled="false"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button Text="登録する" Clicked="EditClicked" HorizontalOptions="Center"/>
+            <Button Text="この食材をおすそ分けする" HorizontalOptions="Center" Clicked="Go_Osusowake"/>
+        </StackLayout>
+    </ScrollView>
+    
 </ContentPage>

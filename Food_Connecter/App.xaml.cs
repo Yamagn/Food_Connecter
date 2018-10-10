@@ -8,8 +8,8 @@ namespace Food_Connecter
 {
     public partial class App : Application
     {
-        public static FoodItemDatabase foodDatabase;
-        public static UketoriItemDateBase uketoriDatabase;
+        private static FoodItemDatabase foodDatabase;
+        private static UketoriItemDateBase uketoriDatabase;
         public static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
         public App()
         {
@@ -37,6 +37,7 @@ namespace Food_Connecter
                 if (uketoriDatabase == null)
                 {
                     uketoriDatabase = new UketoriItemDateBase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UketoriSQLite.db3"));
+                    Console.WriteLine(uketoriDatabase);
                 }
                 return uketoriDatabase;
             }

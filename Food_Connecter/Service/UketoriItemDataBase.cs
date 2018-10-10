@@ -16,13 +16,13 @@ namespace Food_Connecter
 
         public Task<List<osusowakeFood>> GetItemsAsync()
         {
+            var dt = database.Table<osusowakeFood>().ToListAsync();
+            foreach(var i in dt.Result)
+            {
+                database.UpdateAsync(i);
+            }
             return database.Table<osusowakeFood>().ToListAsync();
         }
-
-        //public Task<List<ClassData.classes>> GetItemsNotDoneAsync()
-        //{
-        //    return database.QueryAsync<ClassData.classes>("SELECT * FROM [ClassData] WHERE [Done] = 0");
-        //}
 
         public Task<osusowakeFood> GetItemAsync(int id)
         {

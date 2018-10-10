@@ -6,6 +6,7 @@ using Android.App;
 using Microsoft.WindowsAzure.MobileServices;
 using Plugin.Media;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace Food_Connecter
 {
@@ -22,20 +23,46 @@ namespace Food_Connecter
 
             if (App.Authenticator.user == null)
             {
-                var res = await DisplayAlert("ログインしてください", "", "ログインする", "閉じる");
-                if (res)
-                {
-                    kanriPage.authenticated = await App.Authenticator.Authenticate(MobileServiceAuthenticationProvider.Google);
-                }
-                else
-                {
-                    return;
-                }
+                listView.IsPullToRefreshEnabled = false;
+                await DisplayAlert("ログインしてください", "", "閉じる");
+                return;
             }
             else
             {
 
+                var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
+                var json = await res.Content.ReadAsStringAsync();
+                Console.WriteLine(json);
+                var eventList = new List<eventModel>();
+                try
+                {
+                    eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
+                }
+                catch
+                {
+                    return;
+                }
+                
+                listView.ItemsSource = eventList;
             }
+        }
+
+        async void refreshList(object sender, EventArgs e)
+        {
+            var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
+            var json = await res.Content.ReadAsStringAsync();
+            var eventList = new List<eventModel>();
+            try
+            {
+                eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
+            }
+            catch
+            {
+                return;
+            }
+            listView.ItemsSource = eventList;
+
+            listView.EndRefresh();
         }
 
         async void manageButton_Clicked(object sender, EventArgs e)
@@ -43,9 +70,28 @@ namespace Food_Connecter
             await Navigation.PushAsync(new AddEventPage());
         }
 
-        void OnListItemSelected(object sender, EventArgs e)
+        async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if(e.SelectedItem == null)
+            {
+                return;
+            }
 
+            var info = (eventModel)e.SelectedItem;
+            if(info.Userid == App.Authenticator.user.UserId)
+            {
+                await Navigation.PushAsync(new eventManagePage
+                {
+                    BindingContext = info
+                });
+            }
+            else
+            {
+                await Navigation.PushAsync(new eventDetailpage
+                {
+                    BindingContext = info
+                });
+            }
         }
     }
 }

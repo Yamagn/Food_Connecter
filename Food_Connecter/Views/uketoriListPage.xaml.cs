@@ -16,7 +16,17 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
-            listView.ItemsSource = await App.uketoriDatabase.GetItemsAsync();
+            Stack.IsVisible = true;
+            listView.ItemsSource = await App.UketoriDatabase.GetItemsAsync();
+            Stack.IsVisible = false;
+        }
+
+        async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new ChatPage
+            {
+                BindingContext = ((osusowakeFood)e.SelectedItem).userName
+            });
         }
     }
 }

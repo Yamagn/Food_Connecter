@@ -7,6 +7,10 @@ namespace Food_Connecter
     {
         [JsonProperty("eventname")]
         public string eventName { get; set; }
+        [JsonProperty("eventplace")]
+        public string eventPlace { get; set; }
+        [JsonProperty("eventcity")]
+        public string eventCity { get; set; }
         [JsonProperty("date")]
         public string Date { get; set; }
         [JsonProperty("food")]

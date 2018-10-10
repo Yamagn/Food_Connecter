@@ -37,6 +37,7 @@ namespace Food_Connecter
                     user = await osusowakeController.DefaultManager.CurrentClient.LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController, provider, "foodconnecter");
                     if (user != null)
                     {
+                        user.UserId = user.UserId.Remove(0, 4);
                         message = string.Format("You are now signed-in as {0}.", user.UserId);
                         success = true;
 

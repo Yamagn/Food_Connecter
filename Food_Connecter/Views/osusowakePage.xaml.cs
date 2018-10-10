@@ -34,6 +34,7 @@ namespace Food_Connecter
             {
                 try
                 {
+                    Console.WriteLine(kanriPage.userInfo.City);
                     Uri uri = new Uri(Constants.ApplicationURL + "/api/view?id=" + App.Authenticator.user.UserId + "&city=" + kanriPage.userInfo.City);
                     //Uri uri = new Uri("http://docs.xamarin.com/demo/stock.json");
                     var stream = App.client.GetStringAsync(uri).Result;
@@ -93,26 +94,20 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
+            flexLayout.Children.Clear();
+
             if (App.Authenticator.user == null)
             {
-                var res = await DisplayAlert("ログインしてください", "", "ログインする", "閉じる");
-                if (res)
+                await DisplayAlert("ログインしてください", "", "閉じる");
+                flexLayout.Children.Add(new Label
                 {
-                    kanriPage.authenticated = await App.Authenticator.Authenticate(MobileServiceAuthenticationProvider.Google);
-                }
-                else
-                {
-                    flexLayout.Children.Add(new Label
-                    {
-                        Text = "ログインしてください"
-                    });
+                    Text = "ログインしてください"
+                });
 
-                    return;
-                }
+                return;
             }
             else
             {
-                flexLayout.Children.Clear();
                 LoadBitmapCollection();
             }
         }

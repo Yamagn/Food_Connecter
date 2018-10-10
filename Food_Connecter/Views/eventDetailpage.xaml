@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Food_Connecter.eventDetailpage"
+             Title="イベント詳細">
+    <StackLayout>
+        <ScrollView VerticalOptions="Fill">
+             <TableView Intent="Form">
+                    <TableRoot>
+                        <TableSection x:Name="Detail" Title="詳細情報">
+                            <EntryCell x:Name="eventName" Label="イベント名" IsEnabled="false"/>
+                            <EntryCell x:Name="eventCity" Label="開催する市区町村" IsEnabled="false"/>
+                            <EntryCell x:Name="eventPlace" Label="開催場所" IsEnabled="false"/>
+                            <EntryCell x:Name="Date" Label="開催日時" IsEnabled="false"/>
+                        </TableSection>
+                        <TableSection x:Name="wanted" Title="募集している食材"/>
+                        <TableSection x:Name="food" Title="集まっている食材"/>
+                    </TableRoot>
+                </TableView>
+        </ScrollView>
+        <Button x:Name="join" Text="このイベントに参加する" HorizontalOptions="Center" Clicked="join_Clicked" VerticalOptions="End"/>
+    </StackLayout>
+    
+</ContentPage>

@@ -38,36 +38,35 @@ namespace Food_Connecter
             }
             try
             {
+                var s1 = DateTime.Now.ToString();
+                var vs2 = s1.Split('/');
+                string s2 = String.Format("{0}-{1}-{2}", vs2[0], vs2[1], vs2[2]);
+                Console.WriteLine(s2);
                 var content = new MultipartFormDataContent();
                 var userid = new StringContent(App.Authenticator.user.UserId, Encoding.UTF8);
-                Console.WriteLine(userid.ReadAsStringAsync().Result);
                 content.Add(userid, "userid");
                 var food = new StringContent(ClassName.Text, Encoding.UTF8);
                 content.Add(food, "food");
-                Console.WriteLine(food.ReadAsStringAsync().Result);
-                var fooddate = new StringContent(DateTime.Now.ToString(), Encoding.UTF8);
-                Console.WriteLine(fooddate.ReadAsStringAsync().Result);
+                var fooddate = new StringContent(s2, Encoding.UTF8);
                 content.Add(fooddate, "fooddate");
                 var info = new StringContent(Info.Text, Encoding.UTF8);
-                Console.WriteLine(info.ReadAsStringAsync().Result);
                 content.Add(info, "info");
                 var image = new StreamContent(File.OpenRead(photoUrl));
-                Console.WriteLine(image.ReadAsStringAsync().Result);
                 content.Add(image, "image");
-                Console.WriteLine("Content : " + content.ReadAsStringAsync().Result);
                 HttpClient client = new HttpClient();
-                await content.ReadAsStringAsync();
+                Console.WriteLine(await content.ReadAsStringAsync());
                 client.DefaultRequestHeaders.ExpectContinue = false;
                 var res = client.PostAsync(Constants.ApplicationURL + "/api/foodlearn", content).Result;
-                Console.WriteLine("ResponseStatusCode : " +  res.StatusCode);
-                Console.WriteLine("Response Result : " + res.Content.ReadAsStringAsync().Result);
                 if (res.IsSuccessStatusCode)
                 {
                     await DisplayAlert("おすそ分けに投稿しました", "受け取り相手が現れるまで待ちましょう", "戻る");
+                    ((ClassData)this.BindingContext).IsOsusowake = true;
+                    await App.FoodDatabase.SaveItemAsync((ClassData)this.BindingContext);
                     await Navigation.PopAsync();
                     return;
                 }
             }
+
             catch (Exception err)
             {
                 Console.WriteLine("エラー : " +  err.Message);

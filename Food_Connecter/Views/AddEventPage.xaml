@@ -3,9 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.AddEventPage"
              Title="イベント追加">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="AddEventButton" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
-    </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>
             <Label Text="イベント名" HorizontalOptions="Start" VerticalOptions="Start" Margin="20, 50, 20, 20" />

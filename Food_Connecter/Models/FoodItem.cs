@@ -36,5 +36,13 @@ namespace Food_Connecter
         public DateTime Date { get; set; }
 
         public string Limit { get; set; }
+
+        public bool IsOsusowake { get; set; } = false;
+
+        public bool IsOffer { get; set; } = false;
+
+        public string image { get; set; }
+
+        public string Quantity { get; set; }
     }
 }

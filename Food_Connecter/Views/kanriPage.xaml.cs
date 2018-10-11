@@ -60,7 +60,7 @@ namespace Food_Connecter
                         var json = res.Content.ReadAsStringAsync().Result;
                         Console.WriteLine(json);
                         userInfo = JsonConvert.DeserializeObject<UserModel>(json);
-                        await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
+                        DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
                         Stack.IsVisible = false;
                         if (userInfo.City == null)
                         {
@@ -84,15 +84,15 @@ namespace Food_Connecter
         async void takePhoto (object sender, EventArgs e)
         {
             Stack.IsVisible = true;
-            var photoUrl = await PhotoClient.TakePhotoAsync();
+            var photo = await PhotoClient.TakePhotoAsync();
             List<ClassData> classDatas = new List<ClassData>();
             string[] vs = {};
-            if (photoUrl == null)
+            if (photo == null)
             {
                 Stack.IsVisible = false;
                 return;
             }
-            var ps = await CognitiveAPIClient.AnalizeAsync(photoUrl);
+            var ps = await CognitiveAPIClient.AnalizeAsync(photo.Path);
             foreach (var v in ps.Images[0].Classifiers[0].Classes)
             {
                 var transData = App.client.GetAsync("https://script.google.com/macros/s/AKfycbwIMB_gK-VENxT4-BqKAtgOI779dL1TnOyR-qR1wAzjWmXta0W5/exec?text=" + v.Class + "&source=en&target=ja").Result;
@@ -102,7 +102,7 @@ namespace Food_Connecter
                 v.Score = num.ToString() + "%";
                 var limit = v.Date - DateTime.Now;
                 v.Limit = String.Format("残り : {0}日", limit.Days.ToString());
-                v.image = photoUrl;
+                v.image = photo.AlbumPath;
                 v.Quantity = "1個";
                 classDatas.Add(v);
             }

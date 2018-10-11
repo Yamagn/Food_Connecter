@@ -8,19 +8,26 @@ namespace Food_Connecter
 {
     public static class PhotoClient
     {
-        public static async Task<string> TakePhotoAsync()
+        public static async Task<MediaFile> TakePhotoAsync()
         {
             await CrossMedia.Current.Initialize();
             if(!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported) {
                 throw new NotSupportedException("You Should set up Camera");
             }
 
-            var photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
+            var photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+            {
+                PhotoSize = PhotoSize.Custom,
+                CustomPhotoSize = 40,
+                CompressionQuality = 50,
+                DefaultCamera = CameraDevice.Rear,
+                AllowCropping = false
+            });
             if(photo == null)
             {
                 return null;
             }
-            return photo.Path;
+            return photo;
         }
     }
 }

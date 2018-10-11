@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.kanriPage"
-             Title="食品管理">
+             Title="食品管理"
+             BackgroundColor="#FFE0B2">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="logo.jpg" Priority="-1" Order="Primary"/>
         <ToolbarItem x:Name="loginButton" Text="login" Clicked="loginButton_Clicked" Priority="1" Order="Primary"/>
@@ -13,7 +14,7 @@
             <Label Text="食品登録" HeightRequest="50" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0, 35, 0, 0"/>
             <Button Image="camera.png" HeightRequest="50" Clicked="takePhoto" HorizontalOptions="CenterAndExpand" Margin="0, 20, 0, 0"/>
         </StackLayout>
-        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refleshList">
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refleshList" BackgroundColor="#FFE0B2" HorizontalOptions="Fill">
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Padding="30, 0, 0, 0">
                     <Label Text="名前" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
@@ -29,7 +30,8 @@
                             <MenuItem Text="削除"  Clicked="DeleteAction" CommandParameter="{Binding .}" IsDestructive="True" />
                         </ViewCell.ContextActions>
                         <StackLayout>
-                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal">
+                                <Image x:Name="foodImage" Source="{Binding image}" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30"/>
                                 <Label x:Name="ClassName" Text="{Binding Class}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="LimitTime" Text="{Binding Limit}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="Quantity" Text="{Binding Quantity}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
@@ -41,7 +43,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackLayout x:Name="Stack" IsVisible="false">
-            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" IsRunning="true"/>
+            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" x:Name="activity_indicator" Color="#4D7EE1" IsRunning="true" BackgroundColor="#FFE0B2"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -162,6 +162,7 @@
     <BundleResource Include="Resources\logo.jpg" />
     <BundleResource Include="Resources\42325063_292145241603735_265440162987638784_o.jpg" />
     <BundleResource Include="Resources\refresh.png" />
+    <BundleResource Include="Resources\logo2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />

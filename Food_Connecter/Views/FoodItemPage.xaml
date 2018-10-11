@@ -16,6 +16,7 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
+            <Image x:Name="foodImage" HeightRequest="100"/>
             <Button Text="登録する" Clicked="EditClicked" HorizontalOptions="Center"/>
             <Button Text="この食材をおすそ分けする" HorizontalOptions="Center" Clicked="Go_Osusowake"/>
         </StackLayout>

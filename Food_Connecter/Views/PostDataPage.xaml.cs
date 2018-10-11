@@ -51,18 +51,23 @@ namespace Food_Connecter
                 content.Add(fooddate, "fooddate");
                 var info = new StringContent(Info.Text, Encoding.UTF8);
                 content.Add(info, "info");
-                var image = new StreamContent(File.OpenRead(photoUrl));
-                content.Add(image, "image");
-                HttpClient client = new HttpClient();
+                var imageContent = new StreamContent(File.OpenRead(photoUrl.Path));
+                content.Add(imageContent, "image");
                 Console.WriteLine(await content.ReadAsStringAsync());
-                client.DefaultRequestHeaders.ExpectContinue = false;
-                var res = client.PostAsync(Constants.ApplicationURL + "/api/foodlearn", content).Result;
+                App.client.DefaultRequestHeaders.ExpectContinue = false;
+                var res = App.client.PostAsync(Constants.ApplicationURL + "/api/foodpost", content).Result;
+                Console.WriteLine(res.StatusCode);
                 if (res.IsSuccessStatusCode)
                 {
                     await DisplayAlert("おすそ分けに投稿しました", "受け取り相手が現れるまで待ちましょう", "戻る");
                     ((ClassData)this.BindingContext).IsOsusowake = true;
-                    await App.FoodDatabase.SaveItemAsync((ClassData)this.BindingContext);
+                    await App.FoodDatabase.SaveItemAsync((ClassData)BindingContext);
                     await Navigation.PopAsync();
+                    return;
+                }
+                else
+                {
+                    await DisplayAlert("失敗", "おすそわけに失敗しました", "閉じる");
                     return;
                 }
             }

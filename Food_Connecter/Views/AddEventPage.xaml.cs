@@ -63,6 +63,12 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
+            if (App.Authenticator.user == null)
+            {
+                await DisplayAlert("ログインしてください", "", "閉じる");
+                await Navigation.PopAsync();
+            }
+
             var assembly = typeof(SettingsPage).GetTypeInfo().Assembly;
             using (Stream stream = assembly.GetManifestResourceStream("Food_Connecter.japan_city.json"))
             using (StreamReader reader = new StreamReader(stream))

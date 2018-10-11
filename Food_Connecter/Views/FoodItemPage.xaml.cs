@@ -17,6 +17,9 @@ namespace Food_Connecter
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+
+            var data = (ClassData)BindingContext;
+            foodImage.Source = data.image;
         }
 
         async void EditClicked(object sender, EventArgs e)

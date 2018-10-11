@@ -68,7 +68,7 @@ namespace Food_Connecter
                 {
                     Text = i.userName
                 };
-                label.FontSize = 15;
+                label.FontSize = 20;
                 Label chat = new Label
                 {
                     Text = i.Text
@@ -78,7 +78,20 @@ namespace Food_Connecter
                 {
                     Text = i.datetime
                 };
-                label.FontSize = 10;
+                label.FontSize = 5;
+
+                if(i.Flag)
+                {
+                    label.HorizontalOptions = LayoutOptions.Start;
+                    chat.HorizontalOptions = LayoutOptions.Start;
+                    date.HorizontalOptions = LayoutOptions.Start;
+                }
+                else
+                {
+                    label.HorizontalOptions = LayoutOptions.End;
+                    chat.HorizontalOptions = LayoutOptions.End;
+                    date.HorizontalOptions = LayoutOptions.End;
+                }
 
                 Stack.Children.Add(label);
                 Stack.Children.Add(chat);

@@ -27,24 +27,22 @@ namespace Food_Connecter
                 await DisplayAlert("ログインしてください", "", "閉じる");
                 return;
             }
-            else
+            listView.IsRefreshing = true;
+            var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
+            var json = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(json);
+            var eventList = new List<eventModel>();
+            try
             {
-
-                var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
-                var json = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(json);
-                var eventList = new List<eventModel>();
-                try
-                {
-                    eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
-                }
-                catch
-                {
-                    return;
-                }
-                
-                listView.ItemsSource = eventList;
+                eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
             }
+            catch
+            {
+                return;
+            }
+            
+            listView.ItemsSource = eventList;
+            listView.IsRefreshing = false;
         }
 
         async void refreshList(object sender, EventArgs e)

@@ -18,11 +18,8 @@ namespace Food_Connecter
         {
             try
             {
-                //var beareToken = "Bearer " + App.Authenticator.user.MobileServiceAuthenticationToken;
-                //Console.WriteLine(beareToken);
                 var serverUri = Constants.ApplicationURL + "/api/foodlearn";
                 var content = new StreamContent(File.OpenRead(photoURL));
-                //client.DefaultRequestHeaders.Add("Authorization",beareToken);
                 HttpResponseMessage res = App.client.PostAsync(serverUri, content).Result;
                 Console.WriteLine(res.StatusCode);
                 var jsontext = await res.Content.ReadAsStringAsync();

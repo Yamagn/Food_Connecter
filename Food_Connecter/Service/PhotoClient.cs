@@ -20,8 +20,7 @@ namespace Food_Connecter
                 PhotoSize = PhotoSize.Custom,
                 CustomPhotoSize = 40,
                 CompressionQuality = 50,
-                DefaultCamera = CameraDevice.Rear,
-                AllowCropping = false
+                DefaultCamera = CameraDevice.Rear
             });
             if(photo == null)
             {

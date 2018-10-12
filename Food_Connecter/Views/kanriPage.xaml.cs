@@ -60,7 +60,7 @@ namespace Food_Connecter
                         var json = res.Content.ReadAsStringAsync().Result;
                         Console.WriteLine(json);
                         userInfo = JsonConvert.DeserializeObject<UserModel>(json);
-                        DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
+                        await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
                         Stack.IsVisible = false;
                         if (userInfo.City == null)
                         {

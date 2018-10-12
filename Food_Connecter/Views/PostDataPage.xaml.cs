@@ -43,20 +43,21 @@ namespace Food_Connecter
                 string s2 = String.Format("{0}-{1}-{2}", vs2[0], vs2[1], vs2[2]);
                 Console.WriteLine(s2);
                 var content = new MultipartFormDataContent();
-                var userid = new StringContent(App.Authenticator.user.UserId, Encoding.UTF8);
+                var userid = new StringContent(App.Authenticator.user.UserId);
                 content.Add(userid, "userid");
-                var food = new StringContent(ClassName.Text, Encoding.UTF8);
+                var food = new StringContent(ClassName.Text);
                 content.Add(food, "food");
-                var fooddate = new StringContent(s2, Encoding.UTF8);
+                var fooddate = new StringContent(s2);
                 content.Add(fooddate, "fooddate");
-                var info = new StringContent(Info.Text, Encoding.UTF8);
+                var info = new StringContent(Info.Text);
                 content.Add(info, "info");
-                var imageContent = new StreamContent(File.OpenRead(photoUrl.Path));
+                var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.GetFileName(photoUrl.Path));
+                var imageContent = new StreamContent(File.OpenRead(filePath));
+                imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
                 content.Add(imageContent, "image");
                 Console.WriteLine(await content.ReadAsStringAsync());
-                App.client.DefaultRequestHeaders.ExpectContinue = false;
                 var res = App.client.PostAsync(Constants.ApplicationURL + "/api/foodpost", content).Result;
-                Console.WriteLine(res.StatusCode);
+                Console.WriteLine(await res.Content.ReadAsStringAsync());
                 if (res.IsSuccessStatusCode)
                 {
                     await DisplayAlert("おすそ分けに投稿しました", "受け取り相手が現れるまで待ちましょう", "戻る");

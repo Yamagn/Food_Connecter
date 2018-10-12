@@ -91,5 +91,10 @@ namespace Food_Connecter
                 });
             }
         }
+
+        async void viewEvent_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new viewEventPage());
+        }
     }
 }

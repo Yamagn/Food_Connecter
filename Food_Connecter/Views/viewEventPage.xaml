@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="Food_Connecter.eventPage"
-             Title="イベント">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="logo.jpg" Priority="-1" Order="Primary"/>
-        <ToolbarItem x:Name="AddEventPage" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
-        <ToolbarItem Name="ViewEvent" Text="イベント一覧" Clicked="viewEvent_Clicked" Priority="2" Order="Primary"/>
-    </ContentPage.ToolbarItems>
-    <StackLayout>
-        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refreshList">
+             x:Class="Food_Connecter.viewEventPage">
+     <StackLayout>
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell Height="300">

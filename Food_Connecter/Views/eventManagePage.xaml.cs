@@ -57,7 +57,14 @@ namespace Food_Connecter
                 Console.WriteLine(e.Message);
                 return;
             }
+        }
 
+        async void Wanted_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddWantedPage
+            {
+                BindingContext = (eventModel)this.BindingContext
+            });
         }
     }
 }

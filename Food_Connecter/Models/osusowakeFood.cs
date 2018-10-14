@@ -17,5 +17,7 @@ namespace Food_Connecter
         public string foodDate { get; set; }
         [JsonProperty("foodnum")]
         public int foodNum { get; set; }
+        [JsonProperty("id")]
+        public string userId { get; set; }
     }
 }

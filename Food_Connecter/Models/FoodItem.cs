@@ -46,4 +46,10 @@ namespace Food_Connecter
 
         public string Quantity { get; set; }
     }
+
+    public class foodNum
+    {
+        [JsonProperty("foodnum")]
+        public string FoodNum { get; set; }
+    }
 }

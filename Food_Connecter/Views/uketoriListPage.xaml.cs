@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 using Xamarin.Forms;
 
@@ -7,6 +8,11 @@ namespace Food_Connecter
 {
     public partial class uketoriListPage : ContentPage
     {
+        public class users
+        {
+            [JsonProperty("username")]
+            public string userName { get; set; }
+        }
         public uketoriListPage()
         {
             InitializeComponent();
@@ -17,7 +23,10 @@ namespace Food_Connecter
             base.OnAppearing();
 
             Stack.IsVisible = true;
-            listView.ItemsSource = await App.UketoriDatabase.GetItemsAsync();
+            var res = await App.client.GetAsync(Constants.ApplicationURL + "/api/getchatlist?username=" + kanriPage.userInfo.UserName);
+            var json = JsonConvert.DeserializeObject<List<users>>(await res.Content.ReadAsStringAsync());
+            Console.WriteLine(await res.Content.ReadAsStringAsync());
+            listView.ItemsSource = json;
             Stack.IsVisible = false;
         }
 
@@ -25,7 +34,7 @@ namespace Food_Connecter
         {
             await Navigation.PushAsync(new ChatPage
             {
-                BindingContext = ((osusowakeFood)e.SelectedItem).userName
+                BindingContext = ((users)e.SelectedItem).userName
             });
         }
     }

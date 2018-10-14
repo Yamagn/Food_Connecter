@@ -10,8 +10,7 @@
     </ContentPage.ToolbarItems>
     <StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="食品登録" HeightRequest="50" HorizontalOptions="CenterAndExpand" FontSize="Large" Margin="0, 35, 0, 0"/>
-            <Button Image="camera.png" HeightRequest="50" Clicked="takePhoto" HorizontalOptions="CenterAndExpand" Margin="0, 20, 0, 0"/>
+            <Button Text="食品登録" HeightRequest="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Large" Clicked="takePhoto" BackgroundColor="#FFAB00" TextColor="Blue"/>
         </StackLayout>
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refleshList" HorizontalOptions="Fill">
             <ListView.Header>

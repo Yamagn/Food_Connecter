@@ -8,8 +8,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Food}" HorizontalOptions="Fill"/>
-                            <Label Text="状態" HorizontalOptions="End"/>
+                            <Label Text="{Binding userName}" HorizontalOptions="Fill"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

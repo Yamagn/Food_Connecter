@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 
 using Xamarin.Forms;
+using System.Text;
 
 namespace Food_Connecter
 {
@@ -27,7 +28,8 @@ namespace Food_Connecter
             wanted.eventNum = ((eventModel)BindingContext).Num;
             wanted.wanteds = WantedFood.Text;
             var json = JsonConvert.SerializeObject(wanted);
-            var content = new StringContent(json);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            Console.WriteLine(content.ReadAsStringAsync());
             var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/eventwanted", content);
             if (res.IsSuccessStatusCode)
             {

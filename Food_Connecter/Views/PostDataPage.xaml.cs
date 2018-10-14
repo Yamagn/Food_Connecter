@@ -4,6 +4,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace Food_Connecter
@@ -36,27 +38,44 @@ namespace Food_Connecter
             {
                 return;
             }
+
+            var num = await postImage(photoUrl.Path);
+
+            await FoodPost(num);
+
+            return;
+
+        }
+
+        async Task<int> postImage(string photoUrl)
+        {
+            var serverUri = Constants.ApplicationURL + "/api/photopost";
+            var content = new StreamContent(File.OpenRead(photoUrl));
+            HttpResponseMessage res = App.client.PostAsync(serverUri, content).Result;
+            var jsonText = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonText);
+            var ps = JsonConvert.DeserializeObject<foodNum>(jsonText);
+            return int.Parse(ps.FoodNum);
+        }
+
+        async Task FoodPost(int foodNum)
+        {
             try
             {
                 var s1 = DateTime.Now.ToString();
                 var vs2 = s1.Split('/');
                 string s2 = String.Format("{0}-{1}-{2}", vs2[0], vs2[1], vs2[2]);
                 Console.WriteLine(s2);
-                var content = new MultipartFormDataContent();
-                var userid = new StringContent(App.Authenticator.user.UserId);
-                content.Add(userid, "userid");
-                var food = new StringContent(ClassName.Text);
-                content.Add(food, "food");
-                var fooddate = new StringContent(s2);
-                content.Add(fooddate, "fooddate");
-                var info = new StringContent(Info.Text);
-                content.Add(info, "info");
-                var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.GetFileName(photoUrl.Path));
-                var imageContent = new StreamContent(File.OpenRead(filePath));
-                imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                content.Add(imageContent, "image");
+                postFood post = new postFood();
+                post.userId = App.Authenticator.user.UserId;
+                post.foodName = ClassName.Text;
+                post.foodDate = s2;
+                post.Info = Info.Text;
+                post.foodNum = foodNum;
+                var json = JsonConvert.SerializeObject(post);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 Console.WriteLine(await content.ReadAsStringAsync());
-                var res = App.client.PostAsync(Constants.ApplicationURL + "/api/foodpost", content).Result;
+                var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/foodpost", content);
                 Console.WriteLine(await res.Content.ReadAsStringAsync());
                 if (res.IsSuccessStatusCode)
                 {
@@ -75,7 +94,7 @@ namespace Food_Connecter
 
             catch (Exception err)
             {
-                Console.WriteLine("エラー : " +  err.Message);
+                Console.WriteLine("エラー : " + err.Message);
             }
         }
     }

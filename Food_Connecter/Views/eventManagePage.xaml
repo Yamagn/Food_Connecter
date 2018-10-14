@@ -3,23 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Food_Connecter.eventManagePage"
              Title="イベント管理ページ">
-    <ScrollView>
-        <StackLayout>
-            <TableView Intent="Form" VerticalOptions="Fill">
-                <TableRoot>
-                    <TableSection x:Name="Detail" Title="管理情報">
-                        <EntryCell x:Name="eventName" Label="イベント名" IsEnabled="false"/>
-                        <EntryCell x:Name="eventCity" Label="開催する市区町村" IsEnabled="false"/>
-                        <EntryCell x:Name="eventPlace" Label="開催場所" IsEnabled="false"/>
-                        <EntryCell x:Name="Date" Label="開催日時" IsEnabled="false"/>
-                    </TableSection>
-                    <TableSection x:Name="menber" Title="参加メンバー"/>
-                    <TableSection x:Name="wanted" Title="募集している食材"/>
-                    <TableSection x:Name="food" Title="集まっている食材"/>
-                </TableRoot>
-            </TableView>
-            <Button x:Name="WantedButton" Text="食材を募集してる" Clicked="Wanted_Clicked" HorizontalOptions="Center"/> 
-        </StackLayout>
-         
-    </ScrollView>
+    <StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <TableView Intent="Form" VerticalOptions="Fill" HeightRequest="250">
+                    <TableRoot>
+                        <TableSection x:Name="Detail" Title="管理情報">
+                            <EntryCell x:Name="eventName" Label="イベント名" IsEnabled="false"/>
+                            <EntryCell x:Name="eventCity" Label="開催する市区町村" IsEnabled="false"/>
+                            <EntryCell x:Name="eventPlace" Label="開催場所" IsEnabled="false"/>
+                            <EntryCell x:Name="Date" Label="開催日時" IsEnabled="false"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+                <ListView x:Name="menberList" Margin="0, 20, 0, 20" HeightRequest="250" IsEnabled="false">
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal" Padding="30, 0, 0, 0">
+                            <Label Text="メンバー" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding userName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView x:Name="wantedList" Margin="0, 20, 0, 20" HeightRequest="250" ItemSelected="OnListItemSelected">
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal" Padding="30, 0, 0, 0">
+                            <Label Text="募集している食材" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding foodName}">
+                                <TextCell.ContextActions>
+                                    <MenuItem Text="削除"  Clicked="DeleteAction" CommandParameter="{Binding .}" IsDestructive="True" />
+                                </TextCell.ContextActions>
+                            </TextCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView x:Name="foodList" Margin="0, 20, 0, 20" HeightRequest="250" IsEnabled="false">
+                     <ListView.Header>
+                        <StackLayout Orientation="Horizontal" Padding="30, 0, 0, 0">
+                            <Label Text="集まっている食材" VerticalOptions="Start" FontSize="Micro" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding foodName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+        <Button x:Name="WantedButton" Text="食材を募集" Clicked="Wanted_Clicked" HorizontalOptions="Center"/> 
+    </StackLayout>
 </ContentPage>

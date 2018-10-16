@@ -27,16 +27,15 @@ namespace Food_Connecter
             try
             {
                 cd = this.BindingContext as ClassData;
+                cd.Date = DateTime.Parse(date.Text);
+                cd.Class = className.Text;
+                cd.Quantity = quantiry.Text;
             }
             catch
             {
                 await DisplayAlert("エラー", "日時を正しく入力してください", "閉じる");
                 return;
             }
-            
-            cd.Date = DateTime.Parse(date.Text);
-            cd.Class = className.Text;
-            cd.Quantity = quantiry.Text;
 
             await App.FoodDatabase.SaveItemAsync(cd);
             await DisplayAlert("成功", "内容を編集しました", "戻る");

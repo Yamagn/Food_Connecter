@@ -20,11 +20,6 @@ namespace Food_Connecter
             return database.Table<ClassData>().ToListAsync();
         }
 
-        //public Task<List<ClassData.classes>> GetItemsNotDoneAsync()
-        //{
-        //    return database.QueryAsync<ClassData.classes>("SELECT * FROM [ClassData] WHERE [Done] = 0");
-        //}
-
         public Task<ClassData> GetItemAsync(int id)
         {
             return database.Table<ClassData>().Where(i => i.ID == id).FirstOrDefaultAsync();

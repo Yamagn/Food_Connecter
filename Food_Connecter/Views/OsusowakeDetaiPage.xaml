@@ -6,6 +6,10 @@
     <StackLayout>
         <ScrollView>
             <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="提供者" FontSize="Large" Margin="0, 20, 0, 20"/>
+                    <Label Text="{Binding userName}" FontSize="Large" Margin="0, 20, 0, 20"/>
+                </StackLayout>
                 <Image Source="{Binding imageUrl}" />
                 <Label Text="{Binding Food}" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
                 <Label Text="{Binding foodDate}" FontSize="Medium" HorizontalOptions="CenterAndExpand"/>

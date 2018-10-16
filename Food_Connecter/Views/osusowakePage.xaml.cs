@@ -36,7 +36,6 @@ namespace Food_Connecter
                 {
                     Console.WriteLine(kanriPage.userInfo.City);
                     Uri uri = new Uri(Constants.ApplicationURL + "/api/view?id=" + App.Authenticator.user.UserId + "&city=" + kanriPage.userInfo.City);
-                    //Uri uri = new Uri("http://docs.xamarin.com/demo/stock.json");
                     var stream = App.client.GetStringAsync(uri).Result;
                     Console.WriteLine(stream);
 
@@ -59,24 +58,6 @@ namespace Food_Connecter
                         image.GestureRecognizers.Add(tgr);
                         flexLayout.Children.Add(image);
                     }
-
-                    //var js = JsonConvert.DeserializeObject<ImageList>(stream);
-
-                    //foreach (var filepath in js.Photos)
-                    //{
-                    //    var tgr = new TapGestureRecognizer();
-                    //    tgr.Tapped += async (sender, e) =>
-                    //    {
-                    //        await Navigation.PushAsync(new OsusowakeDetailPage
-                    //        {
-                    //            //BindingContext = filepath
-                    //        });
-                    //    };
-                    //    Image image = new Image();
-                    //    image.Source = ImageSource.FromUri(new Uri(filepath));
-                    //    image.GestureRecognizers.Add(tgr);
-                    //    flexLayout.Children.Add(image);
-                    //}
                 }
                 catch
                 {
@@ -110,11 +91,6 @@ namespace Food_Connecter
             {
                 LoadBitmapCollection();
             }
-        }
-
-        async void manageButton_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new uketoriListPage());
         }
     }
 }

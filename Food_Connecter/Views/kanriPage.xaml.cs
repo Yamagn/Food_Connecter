@@ -92,37 +92,46 @@ namespace Food_Connecter
                 Stack.IsVisible = false;
                 return;
             }
-            var ps = await CognitiveAPIClient.AnalizeAsync(photo.Path);
-            foreach (var v in ps.Images[0].Classifiers[0].Classes)
+            try
             {
-                var transData = App.client.GetAsync("https://script.google.com/macros/s/AKfycbwIMB_gK-VENxT4-BqKAtgOI779dL1TnOyR-qR1wAzjWmXta0W5/exec?text=" + v.Class + "&source=en&target=ja").Result;
-                v.Class = await transData.Content.ReadAsStringAsync();
-                Console.WriteLine("{0}:{1}:{2}", v.ID, v.Class, v.Score);
-                float num = float.Parse(v.Score) * 100;
-                v.Score = num.ToString() + "%";
-                var limit = v.Date - DateTime.Now;
-                v.Limit = String.Format("残り : {0}日", limit.Days.ToString());
-                v.image = photo.AlbumPath;
-                v.Quantity = "1個";
-                classDatas.Add(v);
-            }
-            foreach(var i in classDatas)
-            {
-                vs.CopyTo(vs = new string[vs.Length + 1], 0);
-                vs[vs.Length - 1] = i.Class;
-            }
-            var res = await DisplayActionSheet("あなたの食品はもしかして...", "閉じる", "破棄する", vs);
-            foreach (var i in classDatas)
-            {
-                if(res == i.Class)
+                var ps = await CognitiveAPIClient.AnalizeAsync(photo.Path);
+                foreach (var v in ps.Images[0].Classifiers[0].Classes)
                 {
-                    Console.WriteLine("photoUrl : " + i.image);
-                    await App.FoodDatabase.SaveItemAsync(i);
-                    break;
+                    var transData = App.client.GetAsync("https://script.google.com/macros/s/AKfycbwIMB_gK-VENxT4-BqKAtgOI779dL1TnOyR-qR1wAzjWmXta0W5/exec?text=" + v.Class + "&source=en&target=ja").Result;
+                    v.Class = await transData.Content.ReadAsStringAsync();
+                    Console.WriteLine("{0}:{1}:{2}", v.ID, v.Class, v.Score);
+                    float num = float.Parse(v.Score) * 100;
+                    v.Score = num.ToString() + "%";
+                    var limit = v.Date - DateTime.Now;
+                    v.Limit = String.Format("残り : {0}日", limit.Days.ToString());
+                    v.image = photo.AlbumPath;
+                    v.Quantity = "1個";
+                    classDatas.Add(v);
                 }
+                foreach (var i in classDatas)
+                {
+                    vs.CopyTo(vs = new string[vs.Length + 1], 0);
+                    vs[vs.Length - 1] = i.Class;
+                }
+                var res = await DisplayActionSheet("あなたの食品はもしかして...", "閉じる", "破棄する", vs);
+                foreach (var i in classDatas)
+                {
+                    if (res == i.Class)
+                    {
+                        Console.WriteLine("photoUrl : " + i.image);
+                        await App.FoodDatabase.SaveItemAsync(i);
+                        break;
+                    }
+                }
+                listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
+                Stack.IsVisible = false;
             }
-            listView.ItemsSource = await App.FoodDatabase.GetItemsAsync();
-            Stack.IsVisible = false;
+            catch(Exception ex)
+            {
+                await DisplayAlert("通信失敗", "", "閉じる");
+                Console.WriteLine(ex.Message);
+                return;
+            }
         }
 
         async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)

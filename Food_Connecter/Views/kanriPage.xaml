@@ -10,7 +10,7 @@
     </ContentPage.ToolbarItems>
     <StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Button Text="食品登録" HeightRequest="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Large" Clicked="takePhoto" BackgroundColor="#FFAB00" TextColor="Blue"/>
+            <Button Text="食品登録" HeightRequest="50" WidthRequest="200" HorizontalOptions="CenterAndExpand" FontSize="Large" Clicked="takePhoto" BackgroundColor="#FFAB00" TextColor="Blue" Margin="0, 20, 0, 20"/>
         </StackLayout>
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refleshList" HorizontalOptions="Fill">
             <ListView.Header>
@@ -29,11 +29,10 @@
                         </ViewCell.ContextActions>
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Image x:Name="foodImage" Source="{Binding image}" VerticalOptions="Fill" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30"/>
                                 <Label x:Name="ClassName" Text="{Binding Class}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="LimitTime" Text="{Binding Limit}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="Quantity" Text="{Binding Quantity}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
-                                <Switch x:Name="IsOsusowake" IsToggled="{Binding IsOsusowake}" VerticalOptions="Center" IsEnabled="false" HorizontalOptions="FillAndExpand"/>
+                                <Switch x:Name="IsOsusowake" IsToggled="{Binding IsOsusowake}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

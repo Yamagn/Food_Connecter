@@ -4,7 +4,7 @@ namespace Food_Connecter
 {
     public class eventModel
     {
-        [JsonProperty("eventnum")]
+        [JsonProperty("num")]
         public int Num { get; set; }
         [JsonProperty("eventname")]
         public string eventName { get; set; }

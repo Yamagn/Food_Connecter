@@ -19,7 +19,6 @@ namespace Food_Connecter
             base.OnAppearing();
 
             var data = (ClassData)BindingContext;
-            foodImage.Source = data.image;
         }
 
         async void EditClicked(object sender, EventArgs e)

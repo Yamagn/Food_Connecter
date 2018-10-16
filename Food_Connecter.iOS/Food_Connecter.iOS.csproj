@@ -103,6 +103,7 @@
     <None Include="iTunesMetadata.plist" />
     <None Include="FoodConnecter.mobileprovision" />
     <Compile Include="ContentPageRenderer.cs" />
+    <Compile Include="KeyboardResizingPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -163,6 +164,9 @@
     <BundleResource Include="Resources\42325063_292145241603735_265440162987638784_o.jpg" />
     <BundleResource Include="Resources\refresh.png" />
     <BundleResource Include="Resources\logo2.jpg" />
+    <BundleResource Include="Resources\speech_buble%402x.png" />
+    <BundleResource Include="Resources\speech_buble%403x.png" />
+    <BundleResource Include="Resources\logo%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />

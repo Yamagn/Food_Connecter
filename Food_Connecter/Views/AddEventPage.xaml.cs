@@ -22,6 +22,7 @@ namespace Food_Connecter
 
         async void SelectedChanged(object sender, EventArgs e)
         {
+            TownPicker.Items.Clear();
             TownPicker.IsEnabled = true;
             foreach (var j in townDatas)
             {

@@ -6,7 +6,6 @@
     Title="おすそわけ">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="logo.jpg" Priority="-1" Order="Primary"/>
-        <ToolbarItem x:Name="ManageButton" Text="管理" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
     </ContentPage.ToolbarItems>
     <ScrollView>
         <Grid>

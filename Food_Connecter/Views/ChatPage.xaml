@@ -6,18 +6,14 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="refresh.png" Clicked="refreshChat" />
     </ContentPage.ToolbarItems>
-    <StackLayout>
-        <Label Text="受け取り日時や場所などの指定にご利用ください" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
-        <StackLayout Orientation="Horizontal">
-            <Button Text="受け取りを完了する" Clicked="uketoriDone" HorizontalOptions="CenterAndExpand"/>
-            <Button Text="申請をキャンセルする" Clicked="uketoriCancel" HorizontalOptions="CenterAndExpand" TextColor="Red"/>
-        </StackLayout>
-        <ScrollView VerticalOptions="Fill">
+    <AbsoluteLayout>
+        <Label Text="受け取り日時や場所などの指定にご利用ください" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.1" BackgroundColor="Gray"/>
+        <ScrollView x:Name="scroll" VerticalOptions="Fill" AbsoluteLayout.LayoutBounds="0.5, 0.2, 1, 0.8" AbsoluteLayout.LayoutFlags="All">
             <StackLayout x:Name="Stack"/>
         </ScrollView>
-        <StackLayout Orientation="Horizontal" Margin="10, 0, 0, 10">
-            <Entry x:Name="ChatContent" HorizontalOptions="FillAndExpand"/>
+        <StackLayout x:Name="ChatText" Orientation="Horizontal" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1">
+            <Entry x:Name="ChatContent" HorizontalOptions="FillAndExpand" Focused="entryFocused" Unfocused="entryUnFocused"/>
             <Button x:Name="Send" Text="送信" WidthRequest="50" BackgroundColor="Teal" TextColor="White" Clicked="SendMessage"/>
         </StackLayout>
-    </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>

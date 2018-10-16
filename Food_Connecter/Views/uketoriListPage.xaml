@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="Food_Connecter.uketoriListPage">
+             x:Class="Food_Connecter.uketoriListPage"
+             Title="チャットリスト">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="logo.jpg" Priority="-1" Order="Primary"/>
+    </ContentPage.ToolbarItems>
     <StackLayout>
         <ListView x:Name="listView" ItemSelected="OnListItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding userName}" HorizontalOptions="Fill"/>
+                            <Label Text="{Binding userName}" HorizontalOptions="Fill" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

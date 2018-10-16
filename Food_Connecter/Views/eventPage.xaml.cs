@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Android.App;
-using Microsoft.WindowsAzure.MobileServices;
-using Plugin.Media;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 

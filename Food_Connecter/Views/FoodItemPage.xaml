@@ -12,12 +12,10 @@
                         <EntryCell x:Name="quantiry" Label="量" Text="{Binding Quantity}"/>
                         <SwitchCell Text="おすそ分け状態" On="{Binding IsOsusowake}" IsEnabled="false"/>
                         <EntryCell Label="スコア" Text="{Binding Score}" IsEnabled="false"/>
-                        <SwitchCell Text="イベントへの提供" On="{Binding IsOffer}" IsEnabled="false"/>
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Image x:Name="foodImage" HeightRequest="100"/>
-            <Button Text="登録する" Clicked="EditClicked" HorizontalOptions="Center"/>
+            <Button Text="編集を完了する" Clicked="EditClicked" HorizontalOptions="Center"/>
             <Button Text="この食材をおすそ分けする" HorizontalOptions="Center" Clicked="Go_Osusowake"/>
         </StackLayout>
     </ScrollView>

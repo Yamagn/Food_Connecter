@@ -14,7 +14,7 @@ namespace Food_Connecter
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
@@ -41,9 +41,21 @@ namespace Food_Connecter
             RefreshChat();
         }
 
-        async void refreshChat(object sender, EventArgs e)
+        void refreshChat(object sender, EventArgs e)
         {
             RefreshChat();
+        }
+
+        void entryFocused(object sender, EventArgs e)
+        {
+            AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 0.6, 1, 0.1));
+        }
+
+        void entryUnFocused(object sender, EventArgs e)
+        {
+            AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 1, 1, 0.1));
         }
 
         public async void RefreshChat()
@@ -66,19 +78,19 @@ namespace Food_Connecter
             {
                 Label label = new Label
                 {
-                    Text = i.userName
+                    Text = i.userName,
+                    FontSize = 10
                 };
-                label.FontSize = 20;
                 Label chat = new Label
                 {
-                    Text = i.Text
+                    Text = i.Text,
+                    FontSize = 20
                 };
-                chat.FontSize = 20;
                 Label date = new Label
                 {
-                    Text = i.datetime
+                    Text = i.datetime,
+                    FontSize = 10
                 };
-                label.FontSize = 5;
 
                 if(i.Flag)
                 {

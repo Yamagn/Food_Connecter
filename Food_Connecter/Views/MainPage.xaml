@@ -14,6 +14,11 @@
                 <local:kanriPage />
             </x:Arguments>
         </NavigationPage>
+        <NavigationPage Title="チャット" Icon="speech_buble.png">
+            <x:Arguments>
+                <local:uketoriListPage />
+            </x:Arguments>
+        </NavigationPage>
         <NavigationPage Title="おすそわけ" Icon="meeting.png">
             <x:Arguments>
                 <local:osusowakePage/>

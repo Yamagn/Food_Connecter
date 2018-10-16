@@ -6,7 +6,7 @@
     <StackLayout>
         <ScrollView VerticalOptions="Fill">
             <StackLayout>
-                <TableView Intent="Form">
+                <TableView Intent="Form" HeightRequest="250">
                     <TableRoot>
                         <TableSection x:Name="Detail" Title="詳細情報">
                             <EntryCell x:Name="eventName" Label="イベント名" IsEnabled="false"/>

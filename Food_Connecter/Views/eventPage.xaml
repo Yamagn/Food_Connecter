@@ -6,7 +6,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="logo.jpg" Priority="-1" Order="Primary"/>
         <ToolbarItem x:Name="AddEventPage" Text="+" Clicked="manageButton_Clicked" Priority="1" Order="Primary"/>
-        <ToolbarItem Name="ViewEvent" Text="イベント一覧" Clicked="viewEvent_Clicked" Priority="2" Order="Primary"/>
+        <ToolbarItem x:Name="joinedEvent" Text="参加予定" Clicked="viewEvent_Clicked" Priority="2" />
     </ContentPage.ToolbarItems>
     <StackLayout>
         <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" IsPullToRefreshEnabled="true" Refreshing="refreshList">

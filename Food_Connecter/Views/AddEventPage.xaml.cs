@@ -20,7 +20,7 @@ namespace Food_Connecter
 
         List<TownData> townDatas;
 
-        async void SelectedChanged(object sender, EventArgs e)
+        void SelectedChanged(object sender, EventArgs e)
         {
             TownPicker.Items.Clear();
             TownPicker.IsEnabled = true;
@@ -35,7 +35,7 @@ namespace Food_Connecter
 
         async void OnSubmitClicked(object sender, EventArgs e)
         {
-            if (EventNameEntry.Text == null || PrefPicker.SelectedItem == null || TownPicker.SelectedItem == null || PlaceEntry.Text == null || DatePicker.Date == null || TimePicker.Time == null)
+            if (EventNameEntry.Text == null || PrefPicker.SelectedItem == null || TownPicker.SelectedItem == null || PlaceEntry.Text == null)
             {
                 await DisplayAlert("すべての項目を入力してください", "", "閉じる");
                 return;
@@ -52,12 +52,21 @@ namespace Food_Connecter
             Console.WriteLine(json);
             var content = new StringContent(json);
             content.Headers.ContentType.MediaType = "application/json";
-            var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/makeevent", content);
+            try
+            {
+                var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/makeevent", content);
+                Console.WriteLine(res.StatusCode);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                return;
+            }
+
 
             await DisplayAlert("登録完了", "", "閉じる");
             await Navigation.PopAsync();
-
-            Console.WriteLine(res.StatusCode);
         }
 
         protected async override void OnAppearing()
@@ -70,13 +79,23 @@ namespace Food_Connecter
                 await Navigation.PopAsync();
             }
 
-            var assembly = typeof(SettingsPage).GetTypeInfo().Assembly;
-            using (Stream stream = assembly.GetManifestResourceStream("Food_Connecter.japan_city.json"))
-            using (StreamReader reader = new StreamReader(stream))
+            try
             {
-                string json = await reader.ReadToEndAsync();
-                townDatas = JsonConvert.DeserializeObject<List<TownData>>(json);
+                var assembly = typeof(SettingsPage).GetTypeInfo().Assembly;
+                using (Stream stream = assembly.GetManifestResourceStream("Food_Connecter.japan_city.json"))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string json = await reader.ReadToEndAsync();
+                    townDatas = JsonConvert.DeserializeObject<List<TownData>>(json);
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("エラー", "ファイルが破損している可能性があります", "閉じる");
+                return;
+            }
+
         }
     }
 }

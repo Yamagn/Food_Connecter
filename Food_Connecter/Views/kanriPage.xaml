@@ -32,7 +32,7 @@
                                 <Label x:Name="ClassName" Text="{Binding Class}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="LimitTime" Text="{Binding Limit}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
                                 <Label x:Name="Quantity" Text="{Binding Quantity}" VerticalOptions="Center" FontSize="Small" HorizontalOptions="FillAndExpand"/>
-                                <Switch x:Name="IsOsusowake" IsToggled="{Binding IsOsusowake}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                                <Switch x:Name="IsOsusowake" IsToggled="{Binding IsOsusowake}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" IsEnabled="false"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

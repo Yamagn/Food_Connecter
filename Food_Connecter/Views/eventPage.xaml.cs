@@ -23,12 +23,12 @@ namespace Food_Connecter
                 return;
             }
             listView.IsRefreshing = true;
-            var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
-            var json = await res.Content.ReadAsStringAsync();
-            Console.WriteLine(json);
             var eventList = new List<eventModel>();
             try
             {
+                var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
+                var json = await res.Content.ReadAsStringAsync();
+                Console.WriteLine(json);
                 eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
             }
             catch
@@ -42,11 +42,11 @@ namespace Food_Connecter
 
         async void refreshList(object sender, EventArgs e)
         {
-            var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
-            var json = await res.Content.ReadAsStringAsync();
             var eventList = new List<eventModel>();
             try
             {
+                var res = await App.client.GetAsync("https://samplefood2.azurewebsites.net/api/eventview?pref=" + kanriPage.userInfo.Pref);
+                var json = await res.Content.ReadAsStringAsync();
                 eventList = JsonConvert.DeserializeObject<List<eventModel>>(json);
             }
             catch

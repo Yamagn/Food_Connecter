@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -32,30 +30,45 @@ namespace Food_Connecter
                 return;
             }
 
-            await DisplayAlert("食材撮影", "今の状態を撮影してください", "OK");
-            var photoUrl = await PhotoClient.TakePhotoAsync();
-            if (photoUrl == null)
+            try
             {
+                await DisplayAlert("食材撮影", "今の状態を撮影してください", "OK");
+                var photoUrl = await PhotoClient.TakePhotoAsync();
+                if (photoUrl == null)
+                {
+                    return;
+                }
+                var num = await postImage(photoUrl.Path);
+
+                await FoodPost(num);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
                 return;
             }
-
-            var num = await postImage(photoUrl.Path);
-
-            await FoodPost(num);
-
             return;
-
         }
 
         async Task<int> postImage(string photoUrl)
         {
-            var serverUri = Constants.ApplicationURL + "/api/photopost";
-            var content = new StreamContent(File.OpenRead(photoUrl));
-            HttpResponseMessage res = App.client.PostAsync(serverUri, content).Result;
-            var jsonText = await res.Content.ReadAsStringAsync();
-            Console.WriteLine(jsonText);
-            var ps = JsonConvert.DeserializeObject<foodNum>(jsonText);
-            return int.Parse(ps.FoodNum);
+            try
+            {
+                var serverUri = Constants.ApplicationURL + "/api/photopost";
+                var content = new StreamContent(File.OpenRead(photoUrl));
+                var res = App.client.PostAsync(serverUri, content).Result;
+                var jsonText = await res.Content.ReadAsStringAsync();
+                Console.WriteLine(jsonText);
+                var ps = JsonConvert.DeserializeObject<foodNum>(jsonText);
+                return int.Parse(ps.FoodNum);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                return 0;
+            }
         }
 
         async Task FoodPost(int foodNum)

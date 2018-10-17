@@ -10,6 +10,4 @@
         <Editor x:Name="Info" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#F0F0F0" Placeholder="ここにコメントを追加してください" Margin="20, 0, 20, 0" HeightRequest="100"/>
         <Button Text="写真を撮影して送信" HorizontalOptions="Center" Clicked="OnSendClicked" />
     </StackLayout>
-    
-    
 </ContentPage>

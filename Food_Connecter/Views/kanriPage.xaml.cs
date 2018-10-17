@@ -58,21 +58,31 @@ namespace Food_Connecter
             {
                 if (App.Authenticator != null)
                 {
-                    authenticated = await App.Authenticator.Authenticate(MobileServiceAuthenticationProvider.Google);
-                    if (authenticated == true)
+                    try
                     {
-                        loginButton.Text = "logout";
-                        var res = App.client.GetAsync(Constants.ApplicationURL + "/api/getuser?userid=" + App.Authenticator.user.UserId).Result;
-                        var json = res.Content.ReadAsStringAsync().Result;
-                        Console.WriteLine(json);
-                        userInfo = JsonConvert.DeserializeObject<UserModel>(json);
-                        await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
-                        Stack.IsVisible = false;
-                        if (userInfo.City == null)
+                        authenticated = await App.Authenticator.Authenticate(MobileServiceAuthenticationProvider.Google);
+                        if (authenticated == true)
                         {
-                            await Navigation.PushAsync(new SettingsPage());
+                            loginButton.Text = "logout";
+                            var res = App.client.GetAsync(Constants.ApplicationURL + "/api/getuser?userid=" + App.Authenticator.user.UserId).Result;
+                            var json = res.Content.ReadAsStringAsync().Result;
+                            Console.WriteLine(json);
+                            userInfo = JsonConvert.DeserializeObject<UserModel>(json);
+                            await DisplayAlert("ログイン成功", App.Authenticator.user.UserId, "閉じる");
+                            Stack.IsVisible = false;
+                            if (userInfo.City == null)
+                            {
+                                await Navigation.PushAsync(new SettingsPage());
+                            }
                         }
                     }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                        return;
+                    }
+
                 }
             }
             else 
@@ -134,6 +144,7 @@ namespace Food_Connecter
             }
             catch(Exception ex)
             {
+                Stack.IsVisible = false;
                 await DisplayAlert("通信失敗", "", "閉じる");
                 Console.WriteLine(ex.Message);
                 return;

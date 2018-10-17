@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 using System.Net;
-using System.Runtime.Serialization.Json;
-using System.IO;
-using UIKit;
 
 namespace Food_Connecter
 {
@@ -17,7 +11,7 @@ namespace Food_Connecter
         class ImageList
         {
             [JsonProperty("photos")]
-            public List<string> Photos = null;
+            public List<string> Photos;
         }
 
         public osusowakePage()
@@ -60,12 +54,15 @@ namespace Food_Connecter
                         flexLayout.Children.Add(image);
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                     flexLayout.Children.Add(new Label
                     {
                         Text = "Cannot Access list of bitmap files"
                     });
+                    Console.WriteLine(ex.Message);
+                    await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                    return;
                 }
             }
             activity_indicator.IsRunning = false;
@@ -88,10 +85,7 @@ namespace Food_Connecter
 
                 return;
             }
-            else
-            {
-                LoadBitmapCollection();
-            }
+            LoadBitmapCollection();
         }
     }
 }

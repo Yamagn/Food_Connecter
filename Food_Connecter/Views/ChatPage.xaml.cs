@@ -60,54 +60,63 @@ namespace Food_Connecter
 
         public async void RefreshChat()
         {
-            Stack.Children.Clear();
-            Console.WriteLine(kanriPage.userInfo.UserName);
-            var res = await App.client.GetAsync(Constants.ApplicationURL + "/api/getchat?user=" + kanriPage.userInfo.UserName + "&touser=" + (string)BindingContext);
-            var json = res.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(json);
-            List<getChatModel> history = new List<getChatModel>();
             try
             {
-                history = JsonConvert.DeserializeObject<List<getChatModel>>(json);
+                Stack.Children.Clear();
+                Console.WriteLine(kanriPage.userInfo.UserName);
+                var res = await App.client.GetAsync(Constants.ApplicationURL + "/api/getchat?user=" + kanriPage.userInfo.UserName + "&touser=" + (string)BindingContext);
+                var json = res.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(json);
+                List<getChatModel> history = new List<getChatModel>();
+                try
+                {
+                    history = JsonConvert.DeserializeObject<List<getChatModel>>(json);
+                }
+                catch
+                {
+                    return;
+                }
+                foreach (var i in history)
+                {
+                    Label label = new Label
+                    {
+                        Text = i.userName,
+                        FontSize = 10
+                    };
+                    Label chat = new Label
+                    {
+                        Text = i.Text,
+                        FontSize = 20
+                    };
+                    Label date = new Label
+                    {
+                        Text = i.datetime,
+                        FontSize = 10
+                    };
+
+                    if (i.Flag)
+                    {
+                        label.HorizontalOptions = LayoutOptions.Start;
+                        chat.HorizontalOptions = LayoutOptions.Start;
+                        date.HorizontalOptions = LayoutOptions.Start;
+                    }
+                    else
+                    {
+                        label.HorizontalOptions = LayoutOptions.End;
+                        chat.HorizontalOptions = LayoutOptions.End;
+                        date.HorizontalOptions = LayoutOptions.End;
+                    }
+
+                    Stack.Children.Add(label);
+                    Stack.Children.Add(chat);
+                    Stack.Children.Add(date);
+                }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
                 return;
-            }
-            foreach (var i in history)
-            {
-                Label label = new Label
-                {
-                    Text = i.userName,
-                    FontSize = 10
-                };
-                Label chat = new Label
-                {
-                    Text = i.Text,
-                    FontSize = 20
-                };
-                Label date = new Label
-                {
-                    Text = i.datetime,
-                    FontSize = 10
-                };
-
-                if(i.Flag)
-                {
-                    label.HorizontalOptions = LayoutOptions.Start;
-                    chat.HorizontalOptions = LayoutOptions.Start;
-                    date.HorizontalOptions = LayoutOptions.Start;
-                }
-                else
-                {
-                    label.HorizontalOptions = LayoutOptions.End;
-                    chat.HorizontalOptions = LayoutOptions.End;
-                    date.HorizontalOptions = LayoutOptions.End;
-                }
-
-                Stack.Children.Add(label);
-                Stack.Children.Add(chat);
-                Stack.Children.Add(date);
             }
         }
     }

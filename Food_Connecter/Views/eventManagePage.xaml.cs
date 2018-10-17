@@ -20,13 +20,12 @@ namespace Food_Connecter
 
             var info = (eventModel)BindingContext;
             Console.WriteLine(info.Num);
-
-            var res = await App.client.GetAsync(Constants.ApplicationURL + "/api/manageevent?id=" + App.Authenticator.user.UserId + "&eventnum=" + info.Num.ToString());
-            var text = res.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(res.StatusCode);
-            Console.WriteLine(text);
             try
             {
+                var res = await App.client.GetAsync(Constants.ApplicationURL + "/api/manageevent?id=" + App.Authenticator.user.UserId + "&eventnum=" + info.Num.ToString());
+                var text = res.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(res.StatusCode);
+                Console.WriteLine(text);
                 var json = JsonConvert.DeserializeObject<List<ManageEvent>>(text)[0];
                 eventName.Text = json.eventName;
                 eventCity.Text = json.eventCity;
@@ -66,35 +65,48 @@ namespace Food_Connecter
             wanted.wanteds = foodname;
             var json = JsonConvert.SerializeObject(wanted);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/gatherevent", content);
-            if(res.IsSuccessStatusCode)
+            try
             {
-                await DisplayAlert("成功", "食材を提供しました", "閉じる");
-                return;
-            }
-            else
-            {
+                var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/gatherevent", content);
+                if (res.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("成功", "食材を提供しました", "閉じる");
+                    return;
+                }
                 await DisplayAlert("失敗", "提供に失敗しました", "閉じる");
                 return;
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                return;
+            }
+           
         }
 
         async void DeleteAction(object sender, EventArgs e)
         {
-            var food = (wanted)(((MenuItem)sender).CommandParameter);
-            string reqUrl = Constants.ApplicationURL + "/api/deletewanted?id=" + App.Authenticator.user.UserId + "&foodname=" + food.foodName + "&eventnum=" + ((eventModel)BindingContext).Num;
-            Console.WriteLine(reqUrl);
-            var res = await App.client.DeleteAsync(reqUrl);
-            Console.WriteLine(res.StatusCode);
-            if(res.IsSuccessStatusCode)
+            try
             {
-                await DisplayAlert("削除", food.foodName + "の募集を削除しました", "閉じる");
-                OnAppearing();
+                var food = (wanted)(((MenuItem)sender).CommandParameter);
+                string reqUrl = Constants.ApplicationURL + "/api/deletewanted?id=" + App.Authenticator.user.UserId + "&foodname=" + food.foodName + "&eventnum=" + ((eventModel)BindingContext).Num;
+                Console.WriteLine(reqUrl);
+                var res = await App.client.DeleteAsync(reqUrl);
+                Console.WriteLine(res.StatusCode);
+                if (res.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("削除", food.foodName + "の募集を削除しました", "閉じる");
+                    OnAppearing();
+                    return;
+                }
+                await DisplayAlert("失敗", "削除が完了しませんでした", "閉じる");
                 return;
             }
-            else
+            catch(Exception ex)
             {
-                await DisplayAlert("失敗", "削除が完了しませんでした", "閉じる");
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
                 return;
             }
         }

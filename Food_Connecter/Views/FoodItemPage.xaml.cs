@@ -14,7 +14,7 @@ namespace Food_Connecter
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
@@ -26,7 +26,7 @@ namespace Food_Connecter
             ClassData cd = new ClassData();
             try
             {
-                cd = this.BindingContext as ClassData;
+                cd = BindingContext as ClassData;
                 cd.Date = DateTime.Parse(date.Text);
                 cd.Class = className.Text;
                 cd.Quantity = quantiry.Text;
@@ -46,7 +46,7 @@ namespace Food_Connecter
         {
             await Navigation.PushAsync(new PostDataPage
             {
-                BindingContext = this.BindingContext
+                BindingContext = BindingContext
             });
         }
     }

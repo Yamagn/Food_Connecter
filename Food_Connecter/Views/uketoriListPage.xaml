@@ -12,7 +12,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding userName}" HorizontalOptions="Fill" />
+                            <Label Text="{Binding userName}" HorizontalOptions="Fill" Margin="30, 0, 0, 0" VerticalOptions="CenterAndExpand" FontSize="Medium" FontAttributes="Bold"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

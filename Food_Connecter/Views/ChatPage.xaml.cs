@@ -18,6 +18,18 @@ namespace Food_Connecter
         {
             base.OnAppearing();
 
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                if (UIKit.UIDevice.CurrentDevice.UserInterfaceIdiom == UIKit.UIUserInterfaceIdiom.Pad)
+                {
+                    AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+                    AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 1, 1, 0.05));
+                    return;
+                }
+                AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+                AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 0.6, 1, 0.1));
+            }
+
             RefreshChat();
         }
 
@@ -27,18 +39,28 @@ namespace Food_Connecter
             {
                 return;
             }
-            postChatModel pm = new postChatModel();
-            pm.User = kanriPage.userInfo.UserName;
-            pm.ToUser = (string)this.BindingContext;
-            pm.Text = ChatContent.Text;
+            try
+            {
+                postChatModel pm = new postChatModel();
+                pm.User = kanriPage.userInfo.UserName;
+                pm.ToUser = (string)this.BindingContext;
+                pm.Text = ChatContent.Text;
 
-            var json = JsonConvert.SerializeObject(pm);
-            var content = new StringContent(json);
-            content.Headers.ContentType.MediaType = "application/json";
-            var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/postchat", content);
-            Console.WriteLine(res.StatusCode);
-            ChatContent.Text = null;
-            RefreshChat();
+                var json = JsonConvert.SerializeObject(pm);
+                var content = new StringContent(json);
+                content.Headers.ContentType.MediaType = "application/json";
+                var res = await App.client.PostAsync(Constants.ApplicationURL + "/api/postchat", content);
+                Console.WriteLine(res.StatusCode);
+                ChatContent.Text = null;
+                RefreshChat();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await DisplayAlert("失敗", "通信に失敗しました", "閉じる");
+                return;
+            }
+
         }
 
         void refreshChat(object sender, EventArgs e)
@@ -48,14 +70,30 @@ namespace Food_Connecter
 
         void entryFocused(object sender, EventArgs e)
         {
-            AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
-            AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 0.6, 1, 0.1));
+            if(Device.RuntimePlatform == Device.iOS)
+            {
+                if(UIKit.UIDevice.CurrentDevice.UserInterfaceIdiom == UIKit.UIUserInterfaceIdiom.Pad)
+                {
+                    AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+                    AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 0.7, 1, 0.05));
+                    return;
+                }
+                AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+                AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 1, 1, 0.1));
+            }
+
         }
 
         void entryUnFocused(object sender, EventArgs e)
         {
+            if (UIKit.UIDevice.CurrentDevice.UserInterfaceIdiom == UIKit.UIUserInterfaceIdiom.Pad)
+            {
+                AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
+                AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 1, 1, 0.05));
+                return;
+            }
             AbsoluteLayout.SetLayoutFlags(ChatText, AbsoluteLayoutFlags.All);
-            AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 1, 1, 0.1));
+            AbsoluteLayout.SetLayoutBounds(ChatText, new Rectangle(0, 0.6, 1, 0.1));
         }
 
         public async void RefreshChat()

@@ -7,7 +7,7 @@
         <ToolbarItem Icon="refresh.png" Clicked="refreshChat" />
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
-        <Label Text="受け取り日時や場所などの指定にご利用ください" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.1" BackgroundColor="Gray"/>
+        <Label Text="受け取り日時や場所などの指定にご利用ください" HorizontalOptions="Center" VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0.003, 1, 0.1" BackgroundColor="#FFAB00" FontSize="Medium"/>
         <ScrollView x:Name="scroll" VerticalOptions="Fill" AbsoluteLayout.LayoutBounds="0.5, 0.2, 1, 0.8" AbsoluteLayout.LayoutFlags="All">
             <StackLayout x:Name="Stack"/>
         </ScrollView>

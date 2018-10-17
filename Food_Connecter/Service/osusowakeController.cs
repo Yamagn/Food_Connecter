@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.MobileServices;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using SystemConfiguration;
 namespace Food_Connecter
 {
     public class osusowakeController

@@ -28,8 +28,9 @@ namespace Food_Connecter
                 var limit = i.Date - DateTime.Now;
                 if(limit.Days < 0)
                 {
+                    string msg = i.Class + "の賞味期限が切れたので削除しました";
                     await App.FoodDatabase.DeleteItemAsync(i);
-                    await DisplayAlert("賞味期限が切れています", "{0}の賞味期限が切れたので削除しました", i.Class, "閉じる");
+                    await DisplayAlert("賞味期限が切れています", msg, "閉じる");
                     continue;
                 }
                 i.Limit = String.Format("残り : {0}日", limit.Days.ToString());
